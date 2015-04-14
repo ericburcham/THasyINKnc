@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 
-namespace Examples
+namespace HelloWorld
 {
-    public class HelloWorld
+    internal class Program
     {
-        public void Run()
+        private static void Main()
         {
             var job = new ThreadStart(ThreadJob);
             var workerThread = new Thread(job);
@@ -18,7 +18,7 @@ namespace Examples
             }
         }
 
-        private void ThreadJob()
+        private static void ThreadJob()
         {
             for (var i = 0; i < 10; i++)
             {
