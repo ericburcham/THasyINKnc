@@ -16,6 +16,10 @@ namespace HelloWorld
                 Console.WriteLine("Main thread: {0}", i);
                 Thread.Sleep(200);
             }
+
+            workerThread.Join();
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
         }
 
         private static void ThreadJob()
@@ -23,7 +27,7 @@ namespace HelloWorld
             for (var i = 0; i < 10; i++)
             {
                 Console.WriteLine("Worker thread: {0}", i);
-                Thread.Sleep(100);
+                Thread.Sleep(50);
             }
         }
     }
