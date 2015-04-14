@@ -12,7 +12,7 @@ namespace Examples.Tests
     public class FuncExtensionsTests
     {
         [Test]
-        public void MemoizedFunctionShouldOnlyExecuteOnce()
+        public void MemoizedFunctionShouldOnlyBeCalledOnce()
         {
             // Arrange
             var callCount = 0;
