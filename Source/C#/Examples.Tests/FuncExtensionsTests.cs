@@ -19,7 +19,7 @@ namespace Examples.Tests
 
             Func<int, int> getSameValue = i =>
                 {
-                    callCount++;
+                    callCount--;
                     Thread.Sleep(50);
                     return i;
                 };
