@@ -20,35 +20,5 @@ namespace Examples
                 _cacheLock.ExitWriteLock();
             }
         }
-
-        public new TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
-        {
-            _cacheLock.EnterWriteLock();
-            try
-            {
-                return base.AddOrUpdate(key, addValueFactory, updateValueFactory);
-            }
-            finally
-            {
-                _cacheLock.ExitWriteLock();
-            }
-        }
-
-        public new TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
-        {
-            TValue result;
-
-            _cacheLock.EnterWriteLock();
-            try
-            {
-                result = base.GetOrAdd(key, valueFactory);
-            }
-            finally
-            {
-                _cacheLock.ExitWriteLock();
-            }
-
-            return result;
-        }
     }
 }
