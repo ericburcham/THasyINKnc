@@ -51,9 +51,9 @@ namespace Examples
 
         public static Func<TArg, TResult> SynchronizedMemoize<TArg, TResult>(this Func<TArg, TResult> function)
         {
-            var synchronizedCache = new SynchronizedConcurrentDictionary<TArg, TResult>();
+            var cache = new SynchronizedConcurrentDictionary<TArg, TResult>();
 
-            return key => synchronizedCache.GetOrAdd(key, function);
+            return key => cache.GetOrAdd(key, function);
         }
     }
 }
