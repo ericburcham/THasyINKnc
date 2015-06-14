@@ -18,10 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0FE403
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Hello World With Instance", "2 - Hello World With Instance", "{56D489F4-E51E-438A-B8E0-A607DB1CB8F1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldWithInstance", "HelloWorldWithInstance\HelloWorldWithInstance.csproj", "{7D25E059-E463-47CC-B537-C77AA3DB3013}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,16 +36,11 @@ Global
 		{C61DF593-BC02-4B81-B556-08F341FCD73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C61DF593-BC02-4B81-B556-08F341FCD73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C61DF593-BC02-4B81-B556-08F341FCD73A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D25E059-E463-47CC-B537-C77AA3DB3013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D25E059-E463-47CC-B537-C77AA3DB3013}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D25E059-E463-47CC-B537-C77AA3DB3013}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D25E059-E463-47CC-B537-C77AA3DB3013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C61DF593-BC02-4B81-B556-08F341FCD73A} = {0F7615B9-6ECC-4CCC-94AD-A79767C46D52}
-		{7D25E059-E463-47CC-B537-C77AA3DB3013} = {56D489F4-E51E-438A-B8E0-A607DB1CB8F1}
 	EndGlobalSection
 EndGlobal
