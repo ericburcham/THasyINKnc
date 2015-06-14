@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1FBDE556-92D9-4B73-AF5F-FA43FCA33135}</ProjectGuid>
+    <ProjectGuid>{95C44271-76C2-4DA2-BF1D-43F6BA9CBAD6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PassingParametersToThreads</RootNamespace>
-    <AssemblyName>PassingParametersToThreads</AssemblyName>
+    <RootNamespace>ViaParameterizedThreadStart</RootNamespace>
+    <AssemblyName>ViaParameterizedThreadStart</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
