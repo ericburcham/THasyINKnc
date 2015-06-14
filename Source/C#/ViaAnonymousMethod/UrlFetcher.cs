@@ -6,16 +6,6 @@ namespace ViaAnonymousMethod
 {
     public class UrlFetcher
     {
-        public UrlFetcher(string url)
-        {
-            _url = url;
-        }
-
-        public void Fetch()
-        {
-            FetchUrl(_url);
-        }
-
         public void FetchUrl(string url)
         {
             var request = WebRequest.Create(url);
@@ -27,19 +17,13 @@ namespace ViaAnonymousMethod
                 {
                     using (var reader = new StreamReader(dataStream))
                     {
-                        var responseFromServer = reader.ReadToEnd();
-                        Console.WriteLine("Retrieved: {0}", url);
-                    } 
+                        reader.ReadToEnd();
+                    }
                 }
             }
+
+            Console.WriteLine("Retrieved: {0}", url);
+ 
         }
-
-
-        public void FetchUrl(object url)
-        {
-            FetchUrl((string)url);
-        }
-
-        private readonly string _url;
     }
 }

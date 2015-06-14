@@ -22,11 +22,12 @@ namespace ViaAnInstance
                 {
                     using (var reader = new StreamReader(dataStream))
                     {
-                        var responseFromServer = reader.ReadToEnd();
-                        Console.WriteLine("Retrieved: {0}", _url);
+                        reader.ReadToEnd();
                     } 
                 }
             }
+
+            Console.WriteLine("Retrieved: {0}", url);
         }
 
         private readonly string _url;

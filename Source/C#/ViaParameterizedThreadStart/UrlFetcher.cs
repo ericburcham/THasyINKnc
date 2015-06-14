@@ -6,18 +6,9 @@ namespace ViaParameterizedThreadStart
 {
     public class UrlFetcher
     {
-        public UrlFetcher(string url)
+        public void FetchUrl(object o)
         {
-            _url = url;
-        }
-
-        public void Fetch()
-        {
-            FetchUrl(_url);
-        }
-
-        public void FetchUrl(string url)
-        {
+            var url = (string)o;
             var request = WebRequest.Create(url);
             request.Credentials = CredentialCache.DefaultCredentials;
 
@@ -27,19 +18,12 @@ namespace ViaParameterizedThreadStart
                 {
                     using (var reader = new StreamReader(dataStream))
                     {
-                        var responseFromServer = reader.ReadToEnd();
-                        Console.WriteLine("Retrieved: {0}", url);
-                    } 
+                        reader.ReadToEnd();
+                    }
                 }
             }
+
+            Console.WriteLine("Retrieved: {0}", url);
         }
-
-
-        public void FetchUrl(object url)
-        {
-            FetchUrl((string)url);
-        }
-
-        private readonly string _url;
     }
 }

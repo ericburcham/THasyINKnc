@@ -6,11 +6,11 @@ namespace ViaAnInstance
     {
         private static void Main()
         {
-            var googleUrl = "http://www.google.com";
-            var urlFetcher = new UrlFetcher(googleUrl);
-            var thread1 = new Thread(urlFetcher.Fetch);
-            thread1.Start();
-            thread1.Join();
+            var urlFetcher = new UrlFetcher("http://www.google.com");
+            var thread = new Thread(urlFetcher.Fetch);
+
+            thread.Start();
+            thread.Join();
         }
     }
 }
