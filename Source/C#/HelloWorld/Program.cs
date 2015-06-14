@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace HelloWorld
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main()
         {
@@ -11,10 +11,11 @@ namespace HelloWorld
             var workerThread = new Thread(job);
             workerThread.Start();
 
+            var random = new Random(100);
             for (var i = 0; i < 10; i++)
             {
-                Console.WriteLine("Main thread: {0}", i);
-                Thread.Sleep(200);
+                Console.WriteLine("Hello main thread: {0}", i);
+                Thread.Sleep(random.Next(10, 50));
             }
 
             workerThread.Join();
@@ -24,10 +25,11 @@ namespace HelloWorld
 
         private static void ThreadJob()
         {
+            var random = new Random(200);
             for (var i = 0; i < 10; i++)
             {
-                Console.WriteLine("Worker thread: {0}", i);
-                Thread.Sleep(50);
+                Console.WriteLine("Hello worker thread: {0}", i);
+                Thread.Sleep(random.Next(10, 50));
             }
         }
     }
