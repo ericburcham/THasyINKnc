@@ -6,12 +6,23 @@ namespace ViaAnonymousMethod
     {
         private static void Main()
         {
-            var urlFetcher = new UrlFetcher();
-            var threadStart = new ThreadStart(delegate { urlFetcher.FetchUrl("http://www.google.com"); });
-            var thread = new Thread(threadStart);
+            var thread1 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.yahoo.com"); }));
+            var thread2 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.stackoverflow.com"); }));
+            var thread3 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.google.com"); }));
 
-            thread.Start();
-            thread.Join();
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
+
+            thread1.Join();
+            thread2.Join();
+            thread3.Join();
+        }
+
+        private static void FetchUrlInNewThread(string url)
+        {
+            var urlFetcher = new UrlFetcher();
+            urlFetcher.FetchUrl(url);
         }
     }
 }

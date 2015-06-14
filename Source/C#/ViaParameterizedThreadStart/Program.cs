@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace ViaParameterizedThreadStart
 {
@@ -8,10 +9,17 @@ namespace ViaParameterizedThreadStart
         {
             var urlFetcher = new UrlFetcher();
             var parameterizedThreadStart = new ParameterizedThreadStart(urlFetcher.FetchUrl);
-            var thread = new Thread(parameterizedThreadStart);
+            var thread1 = new Thread(parameterizedThreadStart);
+            var thread2 = new Thread(parameterizedThreadStart);
+            var thread3 = new Thread(parameterizedThreadStart);
 
-            thread.Start("http://www.google.com");
-            thread.Join();
+            thread1.Start("http://www.stackoverflow.com");
+            thread2.Start("http://www.msdn.microsoft.com");
+            thread3.Start("http://www.google.com");
+
+            thread1.Join();
+            thread2.Join();
+            thread3.Join();
         }
     }
 }

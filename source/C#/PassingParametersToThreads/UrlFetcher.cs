@@ -27,7 +27,7 @@ namespace ViaAnInstance
                 }
             }
 
-            Console.WriteLine("Retrieved: {0}", url);
+            Console.WriteLine("Retrieved: {0}", _url);
         }
 
         private readonly string _url;
