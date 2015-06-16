@@ -42,6 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadlockExample", "Deadlock
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitingAndPulsing", "WaitingAndPulsing\WaitingAndPulsing.csproj", "{F54A6F6B-4926-4375-AEE6-78409403FE18}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - WaitHandles, ResetEvents, and Mutex", "5 - WaitHandles, ResetEvents, and Mutex", "{F12589BC-1FCE-4B26-AB9F-DF7E73422AAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResetEvents", "ResetEvents\ResetEvents.csproj", "{7D7EA859-6362-48EE-8D83-EDB69AE3B02E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +100,10 @@ Global
 		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7EA859-6362-48EE-8D83-EDB69AE3B02E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7EA859-6362-48EE-8D83-EDB69AE3B02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7EA859-6362-48EE-8D83-EDB69AE3B02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7EA859-6362-48EE-8D83-EDB69AE3B02E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,5 +119,6 @@ Global
 		{A72F9913-A77C-4F85-864E-509DEEE5AB81} = {1713433E-D5DD-4D97-B72E-4A381BF61A21}
 		{A715F6E4-D7DA-4852-8AC8-69F68002AF8B} = {D983A532-EE4A-4B68-8F25-E48BAED9B042}
 		{F54A6F6B-4926-4375-AEE6-78409403FE18} = {D983A532-EE4A-4B68-8F25-E48BAED9B042}
+		{7D7EA859-6362-48EE-8D83-EDB69AE3B02E} = {F12589BC-1FCE-4B26-AB9F-DF7E73422AAA}
 	EndGlobalSection
 EndGlobal
