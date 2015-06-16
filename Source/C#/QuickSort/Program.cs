@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickSort
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            var random = new Random();
+            var values = new List<int>();
+
+            for (var i = 0; i < 100000; i++)
+            {
+                values.Add(random.Next(100000));
+            }
+
+            SortAlgorithms.QuicksortParallel(values, 0, values.Count - 1);
+
+            values.ForEach(Console.WriteLine);
         }
     }
 }
