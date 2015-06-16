@@ -6,9 +6,9 @@ namespace ViaAnonymousMethod
     {
         private static void Main()
         {
-            var thread1 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.yahoo.com"); }));
-            var thread2 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.stackoverflow.com"); }));
-            var thread3 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.google.com"); }));
+            var thread1 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.yahoo.com", 5); }));
+            var thread2 = new Thread(new ThreadStart(delegate { FetchUrlInNewThread("http://www.stackoverflow.com", 10); }));
+            var thread3 = new Thread(() => FetchUrlInNewThread("http://www.google.com", 15));
 
             thread1.Start();
             thread2.Start();
@@ -19,10 +19,10 @@ namespace ViaAnonymousMethod
             thread3.Join();
         }
 
-        private static void FetchUrlInNewThread(string url)
+        private static void FetchUrlInNewThread(string url, int count)
         {
             var urlFetcher = new UrlFetcher();
-            urlFetcher.FetchUrl(url);
+            urlFetcher.FetchUrl(url, count);
         }
     }
 }

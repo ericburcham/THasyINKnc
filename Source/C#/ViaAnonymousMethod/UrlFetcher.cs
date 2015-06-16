@@ -6,24 +6,26 @@ namespace ViaAnonymousMethod
 {
     public class UrlFetcher
     {
-        public void FetchUrl(string url)
+        public void FetchUrl(string url, int count)
         {
-            var request = WebRequest.Create(url);
-            request.Credentials = CredentialCache.DefaultCredentials;
-
-            using (var response = (HttpWebResponse)request.GetResponse())
+            for (var i = 0; i < count; i++)
             {
-                using (var dataStream = response.GetResponseStream())
+                var request = WebRequest.Create(url);
+                request.Credentials = CredentialCache.DefaultCredentials;
+
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    using (var reader = new StreamReader(dataStream))
+                    using (var dataStream = response.GetResponseStream())
                     {
-                        reader.ReadToEnd();
+                        using (var reader = new StreamReader(dataStream))
+                        {
+                            reader.ReadToEnd();
+                        }
                     }
                 }
-            }
 
-            Console.WriteLine("Retrieved: {0}", url);
- 
+                Console.WriteLine("Retrieved: {0}", url);
+            }
         }
     }
 }
