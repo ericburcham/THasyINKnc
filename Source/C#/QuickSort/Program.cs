@@ -3,21 +3,30 @@ using System.Collections.Generic;
 
 namespace QuickSort
 {
-    static class Program
+    internal static class Program
     {
-        static void Main()
+        private static void Main()
         {
             var random = new Random();
             var values = new List<int>();
 
-            for (var i = 0; i < 100000; i++)
+            for (var i = 0; i < 10000000; i++)
             {
                 values.Add(random.Next(100000));
             }
 
+            // Change with of the following 2 lines is commented to see how slow the non-parallel version is.  Watch the CPU meter, too.
+            // SortAlgorithms.Quicksort(values, 0, values.Count - 1);
             SortAlgorithms.QuicksortParallel(values, 0, values.Count - 1);
 
-            values.ForEach(Console.WriteLine);
+            foreach (var i in values)
+            {
+                // Use a reasonably large prime to limit the output.
+                if (i % 7919 == 0)
+                {
+                    Console.WriteLine(i);
+                }
+            }
         }
     }
 }

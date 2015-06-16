@@ -37,7 +37,7 @@ namespace QuickSort
             return left;
         }
 
-        private static void Quicksort<T>(IList<T> array, int left, int right) where T : IComparable<T>
+        public static void Quicksort<T>(IList<T> array, int left, int right) where T : IComparable<T>
         {
             if (right <= left)
             {
@@ -52,7 +52,7 @@ namespace QuickSort
 
         public static void QuicksortParallel<T>(IList<T> array, int left, int right) where T : IComparable<T>
         {
-            const int ParallelThreshold = 2048;
+            const int ParallelThreshold = 512;
 
             if (right <= left)
             {
