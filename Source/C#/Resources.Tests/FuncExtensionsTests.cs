@@ -6,7 +6,7 @@ using FluentAssertions;
 
 using NUnit.Framework;
 
-namespace Examples.Tests
+namespace Resources.Tests
 {
     [TestFixture]
     public class FuncExtensionsTests

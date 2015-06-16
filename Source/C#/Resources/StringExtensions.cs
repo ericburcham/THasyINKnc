@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Examples
+namespace Resources
 {
     public static class StringExtensions
     {

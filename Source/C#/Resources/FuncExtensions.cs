@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace Examples
+namespace Resources
 {
     public static class FuncExtensions
     {
