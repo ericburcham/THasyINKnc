@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace ShuttingDown
 {
@@ -11,11 +10,10 @@ namespace ShuttingDown
             var threadStart = new ThreadStart(writer.Write);
             var worker = new Thread(threadStart);
             worker.Start();
-            Thread.Sleep(50);
-            Console.WriteLine(writer.Stopped);
+
+            Thread.Sleep(100);
             writer.Stop();
             worker.Join();
-            Console.WriteLine(writer.Stopped);
         }
     }
 }

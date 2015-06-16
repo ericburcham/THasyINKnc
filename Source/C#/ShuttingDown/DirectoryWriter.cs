@@ -82,16 +82,18 @@ namespace ShuttingDown
         {
             try
             {
+                if (Stopping)
+                {
+                    return;
+                }
+
+                foreach (var file in Directory.GetFiles(path))
+                {
+                    Console.WriteLine(file);
+                }
+
                 foreach (var directory in Directory.GetDirectories(path))
                 {
-                    if (Stopping)
-                    {
-                        return;
-                    }
-                    foreach (var file in Directory.GetFiles(directory))
-                    {
-                        Console.WriteLine(file);
-                    }
                     Write(directory);
                 }
             }
