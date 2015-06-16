@@ -70,36 +70,22 @@ namespace ShuttingDown
         {
             try
             {
-                Write(_path);
-            }
-            finally
-            {
-                SetStopped();
-            }
-        }
-
-        private void Write(string path)
-        {
-            try
-            {
-                if (Stopping)
+                foreach (var file in Directory.GetFiles(_path, "*.*", SearchOption.AllDirectories))
                 {
-                    return;
-                }
-
-                foreach (var file in Directory.GetFiles(path))
-                {
+                    if (Stopping)
+                    {
+                        return;
+                    }
                     Console.WriteLine(file);
-                }
-
-                foreach (var directory in Directory.GetDirectories(path))
-                {
-                    Write(directory);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                SetStopped();
             }
         }
 

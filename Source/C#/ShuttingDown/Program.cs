@@ -11,7 +11,7 @@ namespace ShuttingDown
             var worker = new Thread(threadStart);
             worker.Start();
 
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
             writer.Stop();
             worker.Join();
         }
