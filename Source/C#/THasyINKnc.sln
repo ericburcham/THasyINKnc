@@ -36,6 +36,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncrementingCounts3", "Incr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncrementingCounts4", "IncrementingCounts4\IncrementingCounts4.csproj", "{A72F9913-A77C-4F85-864E-509DEEE5AB81}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Deadlocks, Waiting, an Pulsing", "4 - Deadlocks, Waiting, an Pulsing", "{D983A532-EE4A-4B68-8F25-E48BAED9B042}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadlockExample", "DeadlockExample\DeadlockExample.csproj", "{A715F6E4-D7DA-4852-8AC8-69F68002AF8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitingAndPulsing", "WaitingAndPulsing\WaitingAndPulsing.csproj", "{F54A6F6B-4926-4375-AEE6-78409403FE18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +88,14 @@ Global
 		{A72F9913-A77C-4F85-864E-509DEEE5AB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A72F9913-A77C-4F85-864E-509DEEE5AB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A72F9913-A77C-4F85-864E-509DEEE5AB81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A715F6E4-D7DA-4852-8AC8-69F68002AF8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A715F6E4-D7DA-4852-8AC8-69F68002AF8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A715F6E4-D7DA-4852-8AC8-69F68002AF8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A715F6E4-D7DA-4852-8AC8-69F68002AF8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54A6F6B-4926-4375-AEE6-78409403FE18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +109,7 @@ Global
 		{78907610-9B9D-42B1-80E3-3F4794046DA7} = {1713433E-D5DD-4D97-B72E-4A381BF61A21}
 		{47725A05-DA9A-477D-B3F1-8DD0EDE35F78} = {1713433E-D5DD-4D97-B72E-4A381BF61A21}
 		{A72F9913-A77C-4F85-864E-509DEEE5AB81} = {1713433E-D5DD-4D97-B72E-4A381BF61A21}
+		{A715F6E4-D7DA-4852-8AC8-69F68002AF8B} = {D983A532-EE4A-4B68-8F25-E48BAED9B042}
+		{F54A6F6B-4926-4375-AEE6-78409403FE18} = {D983A532-EE4A-4B68-8F25-E48BAED9B042}
 	EndGlobalSection
 EndGlobal
