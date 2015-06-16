@@ -58,6 +58,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async1", "Async1\Async1.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async2", "Async2\Async2.csproj", "{0E43E78A-D490-4097-9977-9298C60D977C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - Gracefully Stopping Threads", "7 - Gracefully Stopping Threads", "{E7382407-46BB-44CC-B9B1-8891FAE47B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShuttingDown", "ShuttingDown\ShuttingDown.csproj", "{87305962-7E4A-43FF-95EF-075AFAFA7FE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +140,10 @@ Global
 		{0E43E78A-D490-4097-9977-9298C60D977C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E43E78A-D490-4097-9977-9298C60D977C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E43E78A-D490-4097-9977-9298C60D977C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87305962-7E4A-43FF-95EF-075AFAFA7FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87305962-7E4A-43FF-95EF-075AFAFA7FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87305962-7E4A-43FF-95EF-075AFAFA7FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87305962-7E4A-43FF-95EF-075AFAFA7FE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,5 +165,6 @@ Global
 		{180A584C-4A98-4AE2-AC0E-9E8CDE7C4699} = {A32040A2-4D1A-48AF-845C-B0E8115C5165}
 		{0107BF9E-8C9E-4BC5-9912-9298D191C3F7} = {A32040A2-4D1A-48AF-845C-B0E8115C5165}
 		{0E43E78A-D490-4097-9977-9298C60D977C} = {A32040A2-4D1A-48AF-845C-B0E8115C5165}
+		{87305962-7E4A-43FF-95EF-075AFAFA7FE5} = {E7382407-46BB-44CC-B9B1-8891FAE47B3A}
 	EndGlobalSection
 EndGlobal
