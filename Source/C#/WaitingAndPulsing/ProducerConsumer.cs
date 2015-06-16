@@ -28,7 +28,7 @@ namespace WaitingAndPulsing
             {
                 while (_queue.Count == 0)
                 {
-                    // This releases _listLock, only reacquiring it
+                    // This releases _listLockand reacquires it
                     // after being woken up by a call to Pulse
                     Monitor.Wait(_listLock);
                 }

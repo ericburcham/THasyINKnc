@@ -7,13 +7,13 @@ namespace WaitingAndPulsing
     {
         private static void Main()
         {
-            _queue = new ProducerConsumer();
+            _sharedResource = new ProducerConsumer();
 
             var producerThread = new Thread(ProducerJob);
             var consumerThread = new Thread(ConsumerJob);
 
-            producerThread.Start();
             consumerThread.Start();
+            producerThread.Start();
 
             producerThread.Join();
             consumerThread.Join();
@@ -25,22 +25,23 @@ namespace WaitingAndPulsing
             for (var i = 0; i < 10; i++)
             {
                 Console.WriteLine("Producing {0}", i);
-                _queue.Produce(i);
+                _sharedResource.Produce(i);
                 Thread.Sleep(random.Next(500));
             }
         }
 
         private static void ConsumerJob()
         {
+            Thread.Sleep(1000);
             var random = new Random(1);
             for (var i = 0; i < 10; i++)
             {
-                var number = _queue.Consume();
+                var number = _sharedResource.Consume();
                 Console.WriteLine("\t\t\t\tConsuming {0}", number);
                 Thread.Sleep(random.Next(500));
             }
         }
 
-        private static ProducerConsumer _queue;
+        private static ProducerConsumer _sharedResource;
     }
 }
