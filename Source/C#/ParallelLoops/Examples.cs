@@ -45,14 +45,14 @@ namespace ParallelLoops
         public void LinqSelectAndIterate()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var squares = numbers.Select(i => i.Square()).ToList();
+            var squares = numbers.Select(i => Functions.Square(i)).ToList();
             squares.ForEach(i => Console.WriteLine(i));
         }
 
         public void PlinqSelectAndIterate()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var squares = numbers.AsParallel().Select(i => i.Square());
+            var squares = numbers.AsParallel().Select(i => Functions.Square(i));
             Parallel.ForEach(squares, i => Console.WriteLine(i));
         }
 
@@ -84,7 +84,7 @@ namespace ParallelLoops
 
         public void ExternalBreak(CancellationTokenSource cancellationTokenSource)
         {
-            CancellationToken cancellationToken = cancellationTokenSource.Token;
+            var cancellationToken = cancellationTokenSource.Token;
             var options = new ParallelOptions { CancellationToken = cancellationToken };
 
             try

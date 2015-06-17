@@ -24,7 +24,7 @@ namespace ParallelAggregation
                 () => 0,
 
                 // The iteration definition
-                (i, loopState, partialResult) => i.Square() + partialResult,
+                (i, loopState, partialResult) => Functions.Square(i) + partialResult,
 
                 // The final step of each local context
                 localPartialSum =>
@@ -52,7 +52,7 @@ namespace ParallelAggregation
                 () => 0,
 
                 // The iteration definition
-                (i, loopState, partialResult) => i.Square() + partialResult,
+                (i, loopState, partialResult) => Functions.Square(i) + partialResult,
 
                 // The final step of each local context
                 localPartialSum =>
@@ -70,14 +70,14 @@ namespace ParallelAggregation
         public void PlinqSum()
         {
             var numbers = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var sumOfSquares = numbers.AsParallel().Select(i => i.Square()).Sum();
+            var sumOfSquares = numbers.AsParallel().Select(i => Functions.Square(i)).Sum();
             Console.WriteLine(sumOfSquares);
         }
 
         public void ParallelCustomAggregator()
         {
             var numbers = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var sumOfSquares = numbers.AsParallel().Select(i => i.Square()).Aggregate(0, (sum, value) => sum + value);
+            var sumOfSquares = numbers.AsParallel().Select(i => Functions.Square(i)).Aggregate(0, (sum, value) => sum + value);
             Console.WriteLine(sumOfSquares);
         }
     }
