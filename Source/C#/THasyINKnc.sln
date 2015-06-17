@@ -68,15 +68,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringComparisons", "String
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design Patterns", "Design Patterns", "{1B413FD2-7B7A-4435-B437-63A7CCEA9D89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelLoops", "ParallelLoops\ParallelLoops.csproj", "{F368A1CF-B2E6-4C76-9820-AE6A06198E74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1 - ParallelLoops", "ParallelLoops\1 - ParallelLoops.csproj", "{F368A1CF-B2E6-4C76-9820-AE6A06198E74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickSort", "QuickSort\QuickSort.csproj", "{0578F891-5D69-4956-B153-591F8DB923B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelTasks", "ParallelTasks\ParallelTasks.csproj", "{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2 - ParallelTasks", "ParallelTasks\2 - ParallelTasks.csproj", "{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelAggregation", "ParallelAggregation\ParallelAggregation.csproj", "{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3 - ParallelAggregation", "ParallelAggregation\3 - ParallelAggregation.csproj", "{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskGraph", "TaskGraph\TaskGraph.csproj", "{7CFB7D45-CB87-4814-9B30-D1674C6B2B84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4 - Futures", "Futures\4 - Futures.csproj", "{7CFB7D45-CB87-4814-9B30-D1674C6B2B84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

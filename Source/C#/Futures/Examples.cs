@@ -1,4 +1,4 @@
-﻿namespace TaskGraph
+﻿namespace Futures
 {
     public class Examples
     {

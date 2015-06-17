@@ -7,8 +7,8 @@
     <ProjectGuid>{7CFB7D45-CB87-4814-9B30-D1674C6B2B84}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TaskGraph</RootNamespace>
-    <AssemblyName>TaskGraph</AssemblyName>
+    <RootNamespace>Futures</RootNamespace>
+    <AssemblyName>Futures</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
