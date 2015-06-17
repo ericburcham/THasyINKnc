@@ -19,7 +19,8 @@ namespace AsyncControllers.Tests
             var controller = new LocationController();
             var result = controller.GetDallasLibraries().Result;
 
-            var libraries = result.Model as IEnumerable<GeoName>;
+            // ReSharper disable once AssignNullToNotNullAttribute
+            var libraries = (result.Model as IEnumerable<GeoName>).ToList();
             libraries.Should().NotBeNull();
             libraries.Count().Should().BeGreaterThan(0);
         }
