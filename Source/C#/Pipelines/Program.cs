@@ -10,6 +10,8 @@ namespace Pipelines
     {
         static void Main(string[] args)
         {
+            var examples = new Examples();
+            examples.RunPipeline(Environment.TickCount);
         }
     }
 }
