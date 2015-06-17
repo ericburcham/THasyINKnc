@@ -74,6 +74,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickSort", "QuickSort\Quic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelTasks", "ParallelTasks\ParallelTasks.csproj", "{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelAggregation", "ParallelAggregation\ParallelAggregation.csproj", "{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +174,10 @@ Global
 		{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3557BF11-DE3C-411F-8BB8-627CCC2B60E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,5 +206,6 @@ Global
 		{F368A1CF-B2E6-4C76-9820-AE6A06198E74} = {1B413FD2-7B7A-4435-B437-63A7CCEA9D89}
 		{0578F891-5D69-4956-B153-591F8DB923B1} = {59CB8F58-C619-4EFF-B58B-18CC31BB6C9B}
 		{8C5A0A06-2F37-4F1C-A798-BFE3230FD9B9} = {1B413FD2-7B7A-4435-B437-63A7CCEA9D89}
+		{3557BF11-DE3C-411F-8BB8-627CCC2B60E1} = {1B413FD2-7B7A-4435-B437-63A7CCEA9D89}
 	EndGlobalSection
 EndGlobal
