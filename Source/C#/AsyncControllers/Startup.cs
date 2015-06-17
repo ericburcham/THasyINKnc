@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AsyncControllers;
+
 using Microsoft.Owin;
+
 using Owin;
 
-[assembly: OwinStartup(typeof(AsyncControllers.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace AsyncControllers
 {

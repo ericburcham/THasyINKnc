@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -13,10 +12,10 @@ namespace AsyncControllers.Services
 
         public IEnumerable<GeoName> GetDallasLibrariesInline()
         {
-            return GetDallasLibraries();
+            return GetDallasLibrariesFromSqlServer();
         }
 
-        private static IEnumerable<GeoName> GetDallasLibraries()
+        private static IEnumerable<GeoName> GetDallasLibrariesFromSqlServer()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             var dataContext = new GeoDataContext(connectionString);

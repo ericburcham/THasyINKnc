@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 using AsyncControllers.Models;
@@ -12,23 +10,36 @@ namespace AsyncControllers.Controllers
 {
     public class LocationController : AsyncController
     {
-        public void GetDallasLibrariesAsync()
+        //public void GetDallasLibrariesAsync()
+        //{
+        //    AsyncManager.OutstandingOperations.Increment();
+        //    Task.Factory.StartNew(GetLibrariesNearDallas);
+        //}
+
+
+        //private void GetLibrariesNearDallas()
+        //{
+        //    var service = new LocationService();
+        //    var dallasLibraries = service.GetDallasLibrariesInline();
+        //    AsyncManager.Parameters["libraries"] = dallasLibraries;
+        //    AsyncManager.OutstandingOperations.Decrement();
+        //}
+
+        //public ViewResult GetDallasLibrariesCompleted(IEnumerable<GeoName> libraries)
+        //{
+        //    return View(libraries);
+        //}
+
+        public async Task<ViewResult> GetDallasLibraries()
         {
-            AsyncManager.OutstandingOperations.Increment();
-            Task.Factory.StartNew(GetLibraries);
+            var libraries = await GetLibrariesNearDallas();
+            return View(libraries);
         }
 
-        private void GetLibraries()
+        private Task<IEnumerable<GeoName>> GetLibrariesNearDallas()
         {
             var service = new LocationService();
-            var dallasLibraries = service.GetDallasLibrariesInline();
-            this.AsyncManager.Parameters["libraries"] = dallasLibraries;
-            this.AsyncManager.OutstandingOperations.Decrement();
-        }
-
-        public ActionResult GetDallasLibrariesCompleted(IEnumerable<GeoName> libraries)
-        {
-            return View(libraries);
+            return Task.Factory.StartNew(() => service.GetDallasLibrariesInline());
         }
     }
 }

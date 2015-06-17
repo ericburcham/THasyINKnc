@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-using AsyncControllers.Controllers.Api;
+using AsyncControllers.Controllers;
+using AsyncControllers.Models;
 
 using FluentAssertions;
 
@@ -14,9 +16,12 @@ namespace AsyncControllers.Tests
         [Test]
         public void GetLibrariesShouldReturnResults()
         {
-            var controller = new GeoNamesApiController();
-            var results = controller.GetLibraries();
-            results.Count().Should().BeGreaterThan(0);
+            var controller = new LocationController();
+            var result = controller.GetDallasLibraries().Result;
+
+            var libraries = result.Model as IEnumerable<GeoName>;
+            libraries.Should().NotBeNull();
+            libraries.Count().Should().BeGreaterThan(0);
         }
     }
 }
