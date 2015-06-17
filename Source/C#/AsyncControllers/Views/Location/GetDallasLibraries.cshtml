@@ -1,0 +1,16 @@
+﻿@model IEnumerable<AsyncControllers.Models.GeoName>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+
+@using (Html.BeginForm())
+{
+    foreach (var library in Model)
+    {
+        Html.LabelFor(model => library.Name);
+    }
+}
