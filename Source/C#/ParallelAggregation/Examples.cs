@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
+
+using Resources;
 
 namespace ParallelAggregation
 {
@@ -13,12 +14,22 @@ namespace ParallelAggregation
             var sumOfSquares = 0;
 
             Parallel.For(
+                // The inclusive min loop value
                 0,
+
+                // The exclusive man loop value
                 10,
+
+                // The initial partial results
                 () => 0,
-                (i, loopState, partialResult) => Square(i) + partialResult,
+
+                // The iteration definition
+                (i, loopState, partialResult) => i.Square() + partialResult,
+
+                // The final step of each local context
                 localPartialSum =>
                     {
+                        // Enforce serial access to single, shared result
                         lock (lockObject)
                         {
                             sumOfSquares += localPartialSum;
@@ -41,7 +52,7 @@ namespace ParallelAggregation
                 () => 0,
 
                 // The iteration definition
-                (i, loopState, partialResult) => Square(i) + partialResult,
+                (i, loopState, partialResult) => i.Square() + partialResult,
 
                 // The final step of each local context
                 localPartialSum =>
@@ -59,20 +70,15 @@ namespace ParallelAggregation
         public void PlinqSum()
         {
             var numbers = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var sumOfSquares = numbers.AsParallel().Select(i => Square(i)).Sum();
+            var sumOfSquares = numbers.AsParallel().Select(i => i.Square()).Sum();
             Console.WriteLine(sumOfSquares);
         }
 
         public void ParallelCustomAggregator()
         {
             var numbers = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var sumOfSquares = numbers.AsParallel().Select(i => Square(i)).Aggregate(0, (sum, value) => sum + value);
+            var sumOfSquares = numbers.AsParallel().Select(i => i.Square()).Aggregate(0, (sum, value) => sum + value);
             Console.WriteLine(sumOfSquares);
-        }
-
-        private int Square(int i)
-        {
-            return i * i;
         }
     }
 }

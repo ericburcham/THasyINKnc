@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using ParallelLoops.Models;
 
+using Resources;
+
 namespace ParallelLoops
 {
     internal class Examples
@@ -43,15 +45,15 @@ namespace ParallelLoops
         public void LinqSelectAndIterate()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var squares = numbers.Select(i => Square(i)).ToList();
+            var squares = numbers.Select(i => i.Square()).ToList();
             squares.ForEach(i => Console.WriteLine(i));
         }
 
         public void PlinqSelectAndIterate()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var squares = numbers.Select(i => Square(i)).AsParallel();
-            Parallel.ForEach(squares, result => Console.WriteLine(result));
+            var squares = numbers.AsParallel().Select(i => i.Square());
+            Parallel.ForEach(squares, i => Console.WriteLine(i));
         }
 
         public void InternalBreak()
@@ -210,12 +212,6 @@ namespace ParallelLoops
             Parallel.ForEach(parent.Children, child => child.Parent.AddChildId(child.Id));
 
             Console.WriteLine(parent.SumOfChildIds);
-        }
-
-        // Some internal methods
-        private int Square(int i)
-        {
-            return i * i;
         }
     }
 }
