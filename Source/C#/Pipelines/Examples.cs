@@ -8,7 +8,7 @@ namespace Pipelines
 {
     internal class Examples
     {
-        public void RunPipeline(int seed)
+        public void RunPipeline()
         {
             var readBuffer = new BlockingCollection<string>(BUFFER_SIZE);
             var correctCaseBuffer = new BlockingCollection<string>(BUFFER_SIZE);
@@ -17,7 +17,7 @@ namespace Pipelines
             var taskFactory = new TaskFactory(TaskCreationOptions.LongRunning, TaskContinuationOptions.None);
 
             // Stage 1: Read strings and merge into sentences
-            var readStrings = taskFactory.StartNew(() => ReadStrings(readBuffer, seed));
+            var readStrings = taskFactory.StartNew(() => ReadStrings(readBuffer, Environment.TickCount));
 
             // Stage 2: Correct case
             var correctCases = taskFactory.StartNew(() => CorrectCase(readBuffer, correctCaseBuffer));
@@ -138,7 +138,7 @@ namespace Pipelines
             }
         }
 
-        private const int NUMBER_OF_SENTENCES = 1000;
+        private const int NUMBER_OF_SENTENCES = 100;
 
         private const int BUFFER_SIZE = 32;
 
