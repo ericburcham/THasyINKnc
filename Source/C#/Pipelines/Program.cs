@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Pipelines
+﻿namespace Pipelines
 {
     static class Program
     {

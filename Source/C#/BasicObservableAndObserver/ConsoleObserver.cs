@@ -4,19 +4,26 @@ namespace BasicObservableAndObserver
 {
     public class ConsoleObserver<T> : IObserver<T>
     {
+        private readonly string _name;
+
+        public ConsoleObserver(string name)
+        {
+            this._name = name;
+        }
+
         public void OnNext(T value)
         {
-            Console.WriteLine("Received value: {0}", value);
+            Console.WriteLine("{0} - Received value: {1}", _name, value);
         }
 
         public void OnError(Exception ex)
         {
-            Console.WriteLine("Received exception: {0}", ex.Message);
+            Console.WriteLine("{0} - Received exception: {1}", _name, ex.Message);
         }
 
         public void OnCompleted()
         {
-            Console.WriteLine("Sequence terminated.");
+            Console.WriteLine("{0} - Sequence terminated.", _name);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-
-using Resources;
-
-namespace Futures
+﻿namespace Futures
 {
     class Program
     {
