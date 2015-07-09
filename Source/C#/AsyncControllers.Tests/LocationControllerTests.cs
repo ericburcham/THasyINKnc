@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace AsyncControllers.Tests
 {
     [TestFixture]
-    public class GeoNamesApiControllerTests
+    public class LocationControllerTests
     {
         [Test]
         public void GetLibrariesShouldReturnResults()
@@ -19,7 +19,7 @@ namespace AsyncControllers.Tests
             var controller = new LocationController();
             var result = controller.GetDallasLibraries().Result;
 
-            var libraries = (result.Model as IEnumerable<GeoName>).ToList();
+            var libraries = ((IEnumerable<GeoName>)result.Model).ToList();
             libraries.Should().NotBeNull();
             libraries.Count().Should().BeGreaterThan(0);
         }
