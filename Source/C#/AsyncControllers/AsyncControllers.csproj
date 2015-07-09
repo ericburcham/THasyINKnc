@@ -211,6 +211,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AsyncLocationController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="GeoDataContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -282,6 +283,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Location\GetDallasLibraries.cshtml" />
+    <Content Include="Views\AsyncLocation\GetDallasLibraries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

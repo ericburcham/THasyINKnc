@@ -1,0 +1,15 @@
+﻿@model IEnumerable<AsyncControllers.Models.GeoName>
+
+@{
+    ViewBag.Title = "Dallas Libraries";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Dallas Libraries</h2>
+
+<ul>
+    @foreach (var library in Model)
+    {
+        <li>@library.Name</li>
+    }
+</ul>
