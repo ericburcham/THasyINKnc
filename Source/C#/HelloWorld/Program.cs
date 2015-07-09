@@ -11,25 +11,26 @@ namespace HelloWorld
             var workerThread = new Thread(job);
             workerThread.Start();
 
-            var random = new Random(100);
-            for (var i = 0; i < 10; i++)
+            var random = new Random(DateTime.Now.Millisecond);
+            var chars = "HELLO".ToCharArray();
+            foreach (var c in chars)
             {
-                Console.WriteLine("Hello main thread: {0}", i);
-                Thread.Sleep(random.Next(10, 50));
+                Console.Write(c);
+                Thread.Sleep(random.Next(100, 500));
             }
 
             workerThread.Join();
-            Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
 
         private static void ThreadJob()
         {
-            var random = new Random(200);
-            for (var i = 0; i < 10; i++)
+            var chars = "world".ToCharArray();
+            var random = new Random(DateTime.Now.Millisecond);
+            foreach (var c in chars)
             {
-                Console.WriteLine("Hello worker thread: {0}", i);
-                Thread.Sleep(random.Next(10, 50));
+                Console.Write(c);
+                Thread.Sleep(random.Next(100, 500));
             }
         }
     }
