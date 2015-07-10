@@ -9,7 +9,7 @@ namespace ParallelLoops
         {
             var examples = new Examples();
 
-            Console.WriteLine("Sequantial for loop");
+            Console.WriteLine("Sequential for loop");
             examples.SequentialFor();
 
             Console.WriteLine("----------------------------");
@@ -20,7 +20,7 @@ namespace ParallelLoops
             Console.ReadKey();
             Console.Clear();
             Console.WriteLine("----------------------------");
-            Console.WriteLine("Sequantial foreach");
+            Console.WriteLine("Sequential foreach");
             examples.SequentialForeach();
 
             Console.WriteLine("----------------------------");
@@ -76,7 +76,7 @@ namespace ParallelLoops
             Console.ReadKey();
             Console.Clear();
             Console.WriteLine("----------------------------");
-            Console.WriteLine("Missusing a property of an object model.");
+            Console.WriteLine("Misusing a property of an object model.");
             examples.UsingPropertiesOfAnObjectModel();
 
             Console.WriteLine("Press any key to continue.");
