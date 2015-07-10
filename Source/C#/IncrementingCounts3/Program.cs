@@ -13,7 +13,7 @@ namespace IncrementingCounts3
 
             for (var i = 0; i < 5; i++)
             {
-                Monitor.Enter(_lock);
+                Monitor.Enter(_countLock);
                 var temp = _count;
                 Thread.Sleep(10);
                 Console.WriteLine("Read count: {0}", temp);
@@ -25,7 +25,7 @@ namespace IncrementingCounts3
                 _count = temp;
                 Thread.Sleep(10);
                 Console.WriteLine("Updated count: {0}", _count);
-                Monitor.Exit(_lock);
+                Monitor.Exit(_countLock);
             }
 
             worker.Join();
@@ -36,7 +36,7 @@ namespace IncrementingCounts3
         {
             for (var i = 0; i < 5; i++)
             {
-                Monitor.Enter(_lock);
+                Monitor.Enter(_countLock);
                 var temp = _count;
                 Thread.Sleep(10);
                 Console.WriteLine("\t\t\tRead count: {0}", temp);
@@ -48,12 +48,12 @@ namespace IncrementingCounts3
                 _count = temp;
                 Thread.Sleep(10);
                 Console.WriteLine("\t\t\tUpdated count: {0}", _count);
-                Monitor.Exit(_lock);
+                Monitor.Exit(_countLock);
             }
         }
 
         private static int _count;
 
-        private static readonly object _lock = new object();
+        private static readonly object _countLock = new object();
     }
 }

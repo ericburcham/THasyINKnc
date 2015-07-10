@@ -45,7 +45,11 @@ namespace ParallelTasks
                 var blender = Graphics.FromImage(result);
                 blender.CompositingMode = CompositingMode.SourceOver;
 
-                Parallel.Invoke(() => SetToGray(source1, layer1), () => Rotate(source2, layer2));
+                Parallel.Invoke(
+                        () => SetToGray(source1, layer1),
+                        () => Rotate(source2, layer2)
+                        );
+
                 Blend(layer1, layer2, blender);
 
                 result.Save(resultFilePath, ImageFormat.Jpeg);

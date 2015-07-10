@@ -13,7 +13,7 @@ namespace IncrementingCounts4
 
             for (var i = 0; i < 5; i++)
             {
-                lock (_lock)
+                lock (_countLock)
                 {
                     var temp = _count;
                     Thread.Sleep(10);
@@ -37,7 +37,7 @@ namespace IncrementingCounts4
         {
             for (var i = 0; i < 5; i++)
             {
-                lock (_lock)
+                lock (_countLock)
                 {
                     var temp = _count;
                     Thread.Sleep(10);
@@ -56,6 +56,6 @@ namespace IncrementingCounts4
 
         private static int _count;
 
-        private static readonly object _lock = new object();
+        private static readonly object _countLock = new object();
     }
 }
