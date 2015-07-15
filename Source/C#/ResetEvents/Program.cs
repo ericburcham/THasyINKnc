@@ -42,10 +42,10 @@ namespace ResetEvents
                 // Don't know, don't care.
                 lock (_lock)
                 {
-                    sleepTime = _random.Next(2000);
+                    sleepTime = _random.Next(1000);
                 }
                 Thread.Sleep(sleepTime);
-                Console.WriteLine("Runner {0} at stage {1}", _id, i);
+                Console.WriteLine("Runner {0} at stage {1}", _id, i + 1);
             }
 
             _resetEvent.Set();
