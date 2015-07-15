@@ -1,6 +1,6 @@
 using System;
 
-namespace AsyncControllers.Areas.HelpPage
+namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
@@ -24,7 +24,7 @@ namespace AsyncControllers.Areas.HelpPage
 
         public override bool Equals(object obj)
         {
-            ImageSample other = obj as ImageSample;
+            var other = obj as ImageSample;
             return other != null && Src == other.Src;
         }
 

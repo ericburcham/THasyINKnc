@@ -24,7 +24,7 @@ namespace ParallelLoops
 
         public void ParallelFor()
         {
-            Parallel.For(0, 10, i => Console.WriteLine(i));
+            Parallel.For(0, 10, Console.WriteLine);
         }
 
         public void SequentialForeach()
@@ -39,21 +39,21 @@ namespace ParallelLoops
         public void ParallelForeach()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            Parallel.ForEach(numbers, i => Console.WriteLine(i));
+            Parallel.ForEach(numbers, Console.WriteLine);
         }
 
         public void LinqSelectAndIterate()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var squares = numbers.Select(i => Functions.Square(i)).ToList();
-            squares.ForEach(i => Console.WriteLine(i));
+            squares.ForEach(Console.WriteLine);
         }
 
         public void PlinqSelectAndIterate()
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var squares = numbers.AsParallel().Select(i => Functions.Square(i));
-            Parallel.ForEach(squares, i => Console.WriteLine(i));
+            Parallel.ForEach(squares, Console.WriteLine);
         }
 
         public void InternalBreak()

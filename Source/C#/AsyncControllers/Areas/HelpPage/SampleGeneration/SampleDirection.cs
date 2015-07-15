@@ -1,4 +1,4 @@
-namespace AsyncControllers.Areas.HelpPage
+namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

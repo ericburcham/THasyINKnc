@@ -8,7 +8,7 @@ namespace QuickSort
     {
         public static void QuicksortParallel<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
         {
-            const int ParallelThreshold = 512;
+            const int ParallelThreshold = 64;
 
             if (rightIndex <= leftIndex)
             {

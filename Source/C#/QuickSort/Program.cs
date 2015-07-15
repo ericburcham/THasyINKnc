@@ -7,12 +7,12 @@ namespace QuickSort
     {
         private static void Main()
         {
-            var random = new Random();
+            var random = new Random(DateTime.Now.Millisecond);
             var values = new List<int>();
 
-            for (var i = 0; i < 10000000; i++)
+            for (var i = 0; i < 1000; i++)
             {
-                values.Add(random.Next(100000));
+                values.Add(random.Next(10000));
             }
 
             // Change with of the following 2 lines is commented to see how slow the non-parallel version is.  Watch the CPU meter, too.
@@ -21,11 +21,7 @@ namespace QuickSort
 
             foreach (var i in values)
             {
-                // Use a reasonably large prime to limit the output.
-                if (i % 7919 == 0)
-                {
-                    Console.WriteLine(i);
-                }
+                Console.WriteLine(i);
             }
         }
     }

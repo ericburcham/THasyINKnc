@@ -7,7 +7,7 @@ namespace WaitingAndPulsing
     {
         private static void Main()
         {
-            _sharedResource = new ProducerConsumer();
+            _sharedResource = new ProducerConsumer<int>();
 
             var producerThread = new Thread(ProducerJob);
             var consumerThread = new Thread(ConsumerJob);
@@ -42,6 +42,6 @@ namespace WaitingAndPulsing
             }
         }
 
-        private static ProducerConsumer _sharedResource;
+        private static ProducerConsumer<int> _sharedResource;
     }
 }

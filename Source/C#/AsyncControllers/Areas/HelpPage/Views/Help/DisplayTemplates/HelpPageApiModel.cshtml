@@ -1,8 +1,7 @@
-@using System.Web.Http.Description
 @model AsyncControllers.Areas.HelpPage.Models.HelpPageApiModel
 
 @{
-    ApiDescription description = Model.ApiDescription;
+    var description = Model.ApiDescription;
 }
 <h1>@description.HttpMethod.Method @description.RelativePath</h1>
 <div>

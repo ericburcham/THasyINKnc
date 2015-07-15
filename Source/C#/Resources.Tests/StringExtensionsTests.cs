@@ -11,11 +11,11 @@ namespace Resources.Tests
         public void IdenticalStringsHaveLevenshteinDistanceOfZero()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringAStringA";
+            const string A = "aStringAStringA";
+            const string B = "aStringAStringA";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(0);
@@ -25,11 +25,11 @@ namespace Resources.Tests
         public void StringsWithDifferentFirstLetterShouldHaveLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "bStringAStringA";
+            const string A = "aStringAStringA";
+            const string B = "bStringAStringA";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -39,11 +39,11 @@ namespace Resources.Tests
         public void StringsWithDifferentLastLetterShouldHaveLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringAStringB";
+            const string A = "aStringAStringA";
+            const string B = "aStringAStringB";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -53,11 +53,11 @@ namespace Resources.Tests
         public void StringsWithDifferntLetterInTheMiddleShouldHaveLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringBStringA";
+            const string A = "aStringAStringA";
+            const string B = "aStringBStringA";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -67,11 +67,11 @@ namespace Resources.Tests
         public void StringsWithTransposedLettersShouldHaveLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "StringABString";
-            var t = "StringBAString";
+            const string A = "StringABString";
+            const string B = "StringBAString";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(2);
@@ -81,11 +81,11 @@ namespace Resources.Tests
         public void StringsWithAdditionalCharacterAtTheEndShouldHaveLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringAStringAA";
+            const string A = "aStringAStringA";
+            const string B = "aStringAStringAA";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -95,11 +95,11 @@ namespace Resources.Tests
         public void StringsWithVariousDifferenceShouldHaveCorrectLevenshteinDistance()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "bStringBStringB";
+            const string A = "aStringAStringA";
+            const string B = "bStringBStringB";
 
             // Act
-            var distance = s.LevenshteinDistance(t);
+            var distance = A.LevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(3);
@@ -109,11 +109,11 @@ namespace Resources.Tests
         public void IdenticalStringsHaveDamerauLevenshteinDistanceOfZero()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringAStringA";
+            const string A = "aStringAStringA";
+            const string B = "aStringAStringA";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(0);
@@ -123,11 +123,11 @@ namespace Resources.Tests
         public void StringsWithDifferentFirstLetterShouldHaveDamerauLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "bStringAStringA";
+            const string A = "aStringAStringA";
+            const string B = "bStringAStringA";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -137,11 +137,11 @@ namespace Resources.Tests
         public void StringsWithDifferentLastLetterShouldHaveDamerauLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringAStringB";
+            const string A = "aStringAStringA";
+            const string B = "aStringAStringB";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -151,11 +151,11 @@ namespace Resources.Tests
         public void StringsWithDifferntLetterInTheMiddleShouldHaveDamerauLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringBStringA";
+            const string A = "aStringAStringA";
+            const string B = "aStringBStringA";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -165,11 +165,11 @@ namespace Resources.Tests
         public void StringsWithTransposedLettersShouldHaveDamerauLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "StringABString";
-            var t = "StringBAString";
+            const string A = "StringABString";
+            const string B = "StringBAString";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -179,11 +179,11 @@ namespace Resources.Tests
         public void StringsWithAdditionalCharacterAtTheEndShouldHaveDamerauLevenshteinDistanceOfOne()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "aStringAStringAA";
+            const string A = "aStringAStringA";
+            const string B = "aStringAStringAA";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(1);
@@ -193,11 +193,11 @@ namespace Resources.Tests
         public void StringsWithVariousDifferenceShouldHaveCorrectDamerauLevenshteinDistance()
         {
             // Arrange
-            var s = "aStringAStringA";
-            var t = "bStringBStringB";
+            const string A = "aStringAStringA";
+            const string B = "bStringBStringB";
 
             // Act
-            var distance = s.DamerauLevenshteinDistance(t);
+            var distance = A.DamerauLevenshteinDistance(B);
 
             // Assert
             distance.Should().Be(3);

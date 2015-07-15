@@ -3,7 +3,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 
 using AsyncControllers.Areas.HelpPage.ModelDescriptions;
-using AsyncControllers.Areas.HelpPage.Models;
 
 namespace AsyncControllers.Areas.HelpPage.Controllers
 {
@@ -12,7 +11,7 @@ namespace AsyncControllers.Areas.HelpPage.Controllers
     /// </summary>
     public class HelpController : Controller
     {
-        private const string ErrorViewName = "Error";
+        private const string ERROR_VIEW_NAME = "Error";
 
         public HelpController()
             : this(GlobalConfiguration.Configuration)
@@ -36,21 +35,21 @@ namespace AsyncControllers.Areas.HelpPage.Controllers
         {
             if (!String.IsNullOrEmpty(apiId))
             {
-                HelpPageApiModel apiModel = Configuration.GetHelpPageApiModel(apiId);
+                var apiModel = Configuration.GetHelpPageApiModel(apiId);
                 if (apiModel != null)
                 {
                     return View(apiModel);
                 }
             }
 
-            return View(ErrorViewName);
+            return View(ERROR_VIEW_NAME);
         }
 
         public ActionResult ResourceModel(string modelName)
         {
             if (!String.IsNullOrEmpty(modelName))
             {
-                ModelDescriptionGenerator modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
+                var modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
                 ModelDescription modelDescription;
                 if (modelDescriptionGenerator.GeneratedModels.TryGetValue(modelName, out modelDescription))
                 {
@@ -58,7 +57,7 @@ namespace AsyncControllers.Areas.HelpPage.Controllers
                 }
             }
 
-            return View(ErrorViewName);
+            return View(ERROR_VIEW_NAME);
         }
     }
 }

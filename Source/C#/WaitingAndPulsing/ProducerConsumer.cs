@@ -3,17 +3,9 @@ using System.Threading;
 
 namespace WaitingAndPulsing
 {
-    public class ProducerConsumer
+    public class ProducerConsumer<T>
     {
-        public int Count
-        {
-            get
-            {
-                return _queue.Count;
-            }
-        }
-
-        public void Produce(int i)
+        public void Produce(T i)
         {
             lock (_listLock)
             {
@@ -38,6 +30,6 @@ namespace WaitingAndPulsing
 
         private readonly object _listLock = new object();
 
-        private readonly Queue<int> _queue = new Queue<int>();
+        private readonly Queue<T> _queue = new Queue<T>();
     }
 }

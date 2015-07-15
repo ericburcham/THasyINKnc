@@ -99,11 +99,11 @@ namespace Pipelines
             {
                 foreach (var line in _phrases)
                 {
-                    if (line == "<Adjective>")
+                    if (line == "[Adjective]")
                     {
                         yield return _adjectives[random.Next(0, _adjectives.Length)];
                     }
-                    else if (line == "<Noun>")
+                    else if (line == "[Noun]")
                     {
                         yield return _nouns[random.Next(0, _nouns.Length)];
                     }
@@ -144,8 +144,8 @@ namespace Pipelines
 
         private static readonly string[] _phrases =
             {
-                "the", "<Adjective>", "<Adjective>", "<Noun>", "jumped over the",
-                "<Adjective>", "<Noun>", "."
+                "the", "[Adjective]", "[Adjective]", "[Noun]", "jumped over the",
+                "[Adjective]", "[Noun]", "."
             };
 
         private static readonly string[] _adjectives = { "quick", "brown", "lazy" };

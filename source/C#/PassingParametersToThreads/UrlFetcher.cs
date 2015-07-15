@@ -18,12 +18,15 @@ namespace ViaAnInstance
 
             using (var response = (HttpWebResponse)request.GetResponse())
             {
-                using (var dataStream = response.GetResponseStream())
+                using (var responseStream = response.GetResponseStream())
                 {
-                    using (var reader = new StreamReader(dataStream))
+                    if (responseStream != null)
                     {
-                        reader.ReadToEnd();
-                    } 
+                        using (var reader = new StreamReader(responseStream))
+                        {
+                            reader.ReadToEnd();
+                        }
+                    }
                 }
             }
 

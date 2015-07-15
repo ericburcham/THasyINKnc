@@ -7,11 +7,11 @@ namespace ResetEvents
     {
         private static void Main()
         {
-            var events = new ManualResetEvent[10];
+            WaitHandle[] events = new WaitHandle[10];
             for (var i = 0; i < events.Length; i++)
             {
                 events[i] = new ManualResetEvent(false);
-                var runner = new Runner(events[i], i);
+                var runner = new Runner((ManualResetEvent)events[i], i);
                 var worker = new Thread(runner.Run);
                 worker.Start();
             }

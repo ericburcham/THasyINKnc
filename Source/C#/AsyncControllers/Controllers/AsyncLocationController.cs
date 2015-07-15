@@ -33,8 +33,8 @@ namespace AsyncControllers.Controllers
         {
             var service = new LocationService();
             var dallasLibraries = service.GetAll();
-            this.AsyncManager.Parameters["libraries"] = dallasLibraries;
-            this.AsyncManager.OutstandingOperations.Decrement();
+            AsyncManager.Parameters["libraries"] = dallasLibraries;
+            AsyncManager.OutstandingOperations.Decrement();
         }
     }
 }

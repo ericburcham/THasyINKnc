@@ -1,4 +1,3 @@
-@using AsyncControllers.Areas.HelpPage.ModelDescriptions
 @model IList<AsyncControllers.Areas.HelpPage.ModelDescriptions.ParameterDescription>
 
 @if (Model.Count > 0)
@@ -8,16 +7,16 @@
             <tr><th>Name</th><th>Description</th><th>Type</th><th>Additional information</th></tr>
         </thead>
         <tbody>
-            @foreach (ParameterDescription parameter in Model)
+            @foreach (var parameter in Model)
             {
-                ModelDescription modelDescription = parameter.TypeDescription;
+                var modelDescription = parameter.TypeDescription;
                 <tr>
                     <td class="parameter-name">@parameter.Name</td>
                     <td class="parameter-documentation">
                         <p>@parameter.Documentation</p>
                     </td>
                     <td class="parameter-type">
-                        @Html.DisplayFor(m => modelDescription.ModelType, "ModelDescriptionLink", new { modelDescription = modelDescription })
+                        @Html.DisplayFor(m => modelDescription.ModelType, "ModelDescriptionLink", new { modelDescription })
                     </td>
                     <td class="parameter-annotations">
                         @if (parameter.Annotations.Count > 0)

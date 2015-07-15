@@ -2,10 +2,10 @@
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var examples = new Examples();
-            examples.Sequantial();
+            examples.Sequential();
             examples.WithFutures();
             examples.WithContinuation();
         }

@@ -1,12 +1,10 @@
-@using System.Web.Http.Controllers
-@using System.Web.Http.Description
 @model System.Collections.ObjectModel.Collection<System.Web.Http.Description.ApiDescription>
 
 @{
     ViewBag.Title = "ASP.NET Web API Help Page";
 
     // Group APIs by controller
-    ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
+    var apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
 }
 
 <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />

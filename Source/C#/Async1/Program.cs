@@ -11,8 +11,7 @@ namespace Async1
 
             testDelegate.BeginInvoke("Hello, world!", Callback, testDelegate);
 
-            // Give the callback time to execute - otherwise the app
-            // may terminate before it is called
+            // Make sure the callback has time to run.
             Thread.Sleep(1000);
         }
 

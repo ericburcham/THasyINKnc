@@ -38,7 +38,7 @@ namespace BasicObservableAndObserver
             return observer => new Thread(
                                    () =>
                                        {
-                                           for (var i = 0; i < this._count; i++)
+                                           for (var i = 0; i < _count; i++)
                                            {
                                                Thread.Sleep(random.Next(100));
                                                observer.OnNext(i);

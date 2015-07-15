@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 using FluentAssertions;
 
@@ -19,34 +19,33 @@ namespace Resources.Tests
 
             Func<int, int> getValueSquared = i =>
                 {
-                    callCount++;
-                    Thread.Sleep(1);
-                    return i ^ 2;
+                    lock (_callCountLock)
+                    {
+                        callCount++;
+                    }
+                    Thread.Sleep(100);
+                    var result = i * i;
+                    return result;
                 };
 
-            // Act
             var memoized = getValueSquared.Memoize();
 
-            var threads = new List<Thread>();
-            for (var i = 0; i < 50; i++)
-            {
-                var job = new ThreadStart(
-                    () =>
-                        {
-                            var firstResult = memoized(1);
-                            var secondResult = memoized(2);
-                            firstResult.Should().Be(1);
-                            secondResult.Should().Be(4);
-                        });
-
-                threads.Add(new Thread(job));
-            }
-
-            threads.ForEach(thread => thread.Start());
-            threads.ForEach(thread => thread.Join());
+            // Act
+            Parallel.For(0, 5000, GetTwoSqured(memoized));
 
             // Assert
-            callCount.Should().Be(2);
+            callCount.Should().Be(1);
         }
+
+        private static Action<int> GetTwoSqured(Func<int, int> memoized)
+        {
+            return delegate
+                {
+                    var secondResult = memoized(2);
+                    secondResult.Should().Be(4);
+                };
+        }
+
+        private readonly object _callCountLock = new object();
     }
 }

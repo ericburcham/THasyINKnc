@@ -8,7 +8,7 @@ namespace BasicObservableAndObserver
 
         public ConsoleObserver(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         public void OnNext(T value)

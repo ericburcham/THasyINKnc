@@ -7,16 +7,21 @@ namespace ThreadPool1
     {
         private static void Main()
         {
-            var waitCallback = new WaitCallback(WriteMessage);
-            ThreadPool.QueueUserWorkItem(waitCallback, "Hello, world!");
-
             lock (_lock)
             {
+                StartWorkItem();
+
                 Console.WriteLine("Waiting for ThreadPool thread.");
                 Monitor.Wait(_lock);
             }
 
             Console.WriteLine("Finished.");
+        }
+
+        private static void StartWorkItem()
+        {
+            var waitCallback = new WaitCallback(WriteMessage);
+            ThreadPool.QueueUserWorkItem(waitCallback, "Hello, world!");
         }
 
         private static void WriteMessage(object message)
