@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 
 using AsyncControllers.Models;
 
@@ -9,6 +10,10 @@ namespace AsyncControllers.Services
 {
     public class LocationService
     {
+        public Task<IEnumerable<GeoName>> GetAllAsync()
+        {
+            return Task.Factory.StartNew(() => this.GetAll());
+        }
 
         public IEnumerable<GeoName> GetAll()
         {

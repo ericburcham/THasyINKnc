@@ -15,10 +15,10 @@ namespace AsyncControllers.Controllers
         /// <summary>
         /// Naming convention is [ActionName]Async
         /// </summary>
-        public void GetDallasLibrariesAsync()
+        public async void GetDallasLibrariesAsync()
         {
             AsyncManager.OutstandingOperations.Increment();
-            Task.Factory.StartNew(GetLibrariesNearDallas);
+            await GetLibrariesNearDallasAsync();
         }
 
         /// <summary>
@@ -29,10 +29,10 @@ namespace AsyncControllers.Controllers
             return View(libraries);
         }
 
-        private void GetLibrariesNearDallas()
+        private async Task GetLibrariesNearDallasAsync()
         {
             var service = new LocationService();
-            var dallasLibraries = service.GetAll();
+            var dallasLibraries = await service.GetAllAsync().ConfigureAwait(false);
             AsyncManager.Parameters["libraries"] = dallasLibraries;
             AsyncManager.OutstandingOperations.Decrement();
         }

@@ -14,14 +14,14 @@ namespace AsyncControllers.Controllers
     {
         public async Task<ViewResult> GetDallasLibraries()
         {
-            var libraries = await GetLibrariesNearDallas();
+            var libraries = await this.GetDallasLibrariesAsync();
             return View(libraries);
         }
 
-        private Task<IEnumerable<GeoName>> GetLibrariesNearDallas()
+        private async Task<IEnumerable<GeoName>> GetDallasLibrariesAsync()
         {
             var service = new LocationService();
-            return Task.Factory.StartNew(() => service.GetAll());
+            return await service.GetAllAsync().ConfigureAwait(false);
         }
     }
 }
