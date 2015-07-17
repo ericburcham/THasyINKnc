@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace AsyncControllers.Areas.HelpPage.ModelDescriptions

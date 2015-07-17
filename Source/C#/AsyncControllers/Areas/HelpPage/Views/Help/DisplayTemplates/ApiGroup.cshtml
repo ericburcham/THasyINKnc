@@ -1,5 +1,9 @@
+@using System.Web.Http
+@using System.Web.Http.Controllers
+@using System.Web.Http.Description
 @using AsyncControllers.Areas.HelpPage
-@model IGrouping<System.Web.Http.Controllers.HttpControllerDescriptor, System.Web.Http.Description.ApiDescription>
+@using AsyncControllers.Areas.HelpPage.Models
+@model IGrouping<HttpControllerDescriptor, ApiDescription>
 
 @{
     var controllerDocumentation = ViewBag.DocumentationProvider != null ? 

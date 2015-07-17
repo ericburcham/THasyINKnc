@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -8,17 +9,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-
 using AsyncControllers.Areas.HelpPage.ModelDescriptions;
 using AsyncControllers.Areas.HelpPage.Models;
-using AsyncControllers.Areas.HelpPage.SampleGeneration;
 
 namespace AsyncControllers.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
-        private const string API_MODEL_PREFIX = "MS_HelpPageApiModel_";
+        private const string ApiModelPrefix = "MS_HelpPageApiModel_";
 
         /// <summary>
         /// Sets the documentation provider for help page.
@@ -219,11 +219,11 @@ namespace AsyncControllers.Areas.HelpPage
         public static HelpPageApiModel GetHelpPageApiModel(this HttpConfiguration config, string apiDescriptionId)
         {
             object model;
-            var modelId = API_MODEL_PREFIX + apiDescriptionId;
+            string modelId = ApiModelPrefix + apiDescriptionId;
             if (!config.Properties.TryGetValue(modelId, out model))
             {
-                var apiDescriptions = config.Services.GetApiExplorer().ApiDescriptions;
-                var apiDescription = apiDescriptions.FirstOrDefault(api => String.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
+                Collection<ApiDescription> apiDescriptions = config.Services.GetApiExplorer().ApiDescriptions;
+                ApiDescription apiDescription = apiDescriptions.FirstOrDefault(api => String.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
                 if (apiDescription != null)
                 {
                     model = GenerateApiModel(apiDescription, config);
@@ -236,13 +236,13 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HttpConfiguration config)
         {
-            var apiModel = new HelpPageApiModel()
+            HelpPageApiModel apiModel = new HelpPageApiModel()
             {
                 ApiDescription = apiDescription,
             };
 
-            var modelGenerator = config.GetModelDescriptionGenerator();
-            var sampleGenerator = config.GetHelpPageSampleGenerator();
+            ModelDescriptionGenerator modelGenerator = config.GetModelDescriptionGenerator();
+            HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
             GenerateUriParameters(apiModel, modelGenerator);
             GenerateRequestModelDescription(apiModel, modelGenerator, sampleGenerator);
             GenerateResourceDescription(apiModel, modelGenerator);
@@ -253,12 +253,12 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static void GenerateUriParameters(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
-            var apiDescription = apiModel.ApiDescription;
-            foreach (var apiParameter in apiDescription.ParameterDescriptions)
+            ApiDescription apiDescription = apiModel.ApiDescription;
+            foreach (ApiParameterDescription apiParameter in apiDescription.ParameterDescriptions)
             {
                 if (apiParameter.Source == ApiParameterSource.FromUri)
                 {
-                    var parameterDescriptor = apiParameter.ParameterDescriptor;
+                    HttpParameterDescriptor parameterDescriptor = apiParameter.ParameterDescriptor;
                     Type parameterType = null;
                     ModelDescription typeDescription = null;
                     ComplexTypeModelDescription complexTypeDescription = null;
@@ -292,14 +292,14 @@ namespace AsyncControllers.Areas.HelpPage
                     if (complexTypeDescription != null
                         && !IsBindableWithTypeConverter(parameterType))
                     {
-                        foreach (var uriParameter in complexTypeDescription.Properties)
+                        foreach (ParameterDescription uriParameter in complexTypeDescription.Properties)
                         {
                             apiModel.UriParameters.Add(uriParameter);
                         }
                     }
                     else if (parameterDescriptor != null)
                     {
-                        var uriParameter =
+                        ParameterDescription uriParameter =
                             AddParameterDescription(apiModel, apiParameter, typeDescription);
 
                         if (!parameterDescriptor.IsOptional)
@@ -307,7 +307,7 @@ namespace AsyncControllers.Areas.HelpPage
                             uriParameter.Annotations.Add(new ParameterAnnotation() { Documentation = "Required" });
                         }
 
-                        var defaultValue = parameterDescriptor.DefaultValue;
+                        object defaultValue = parameterDescriptor.DefaultValue;
                         if (defaultValue != null)
                         {
                             uriParameter.Annotations.Add(new ParameterAnnotation() { Documentation = "Default value is " + Convert.ToString(defaultValue, CultureInfo.InvariantCulture) });
@@ -320,7 +320,7 @@ namespace AsyncControllers.Areas.HelpPage
                         // If parameterDescriptor is null, this is an undeclared route parameter which only occurs
                         // when source is FromUri. Ignored in request model and among resource parameters but listed
                         // as a simple string here.
-                        var modelDescription = modelGenerator.GetOrCreateModelDescription(typeof(string));
+                        ModelDescription modelDescription = modelGenerator.GetOrCreateModelDescription(typeof(string));
                         AddParameterDescription(apiModel, apiParameter, modelDescription);
                     }
                 }
@@ -340,7 +340,7 @@ namespace AsyncControllers.Areas.HelpPage
         private static ParameterDescription AddParameterDescription(HelpPageApiModel apiModel,
             ApiParameterDescription apiParameter, ModelDescription typeDescription)
         {
-            var parameterDescription = new ParameterDescription
+            ParameterDescription parameterDescription = new ParameterDescription
             {
                 Name = apiParameter.Name,
                 Documentation = apiParameter.Documentation,
@@ -353,19 +353,19 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static void GenerateRequestModelDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator, HelpPageSampleGenerator sampleGenerator)
         {
-            var apiDescription = apiModel.ApiDescription;
-            foreach (var apiParameter in apiDescription.ParameterDescriptions)
+            ApiDescription apiDescription = apiModel.ApiDescription;
+            foreach (ApiParameterDescription apiParameter in apiDescription.ParameterDescriptions)
             {
                 if (apiParameter.Source == ApiParameterSource.FromBody)
                 {
-                    var parameterType = apiParameter.ParameterDescriptor.ParameterType;
+                    Type parameterType = apiParameter.ParameterDescriptor.ParameterType;
                     apiModel.RequestModelDescription = modelGenerator.GetOrCreateModelDescription(parameterType);
                     apiModel.RequestDocumentation = apiParameter.Documentation;
                 }
                 else if (apiParameter.ParameterDescriptor != null &&
                     apiParameter.ParameterDescriptor.ParameterType == typeof(HttpRequestMessage))
                 {
-                    var parameterType = sampleGenerator.ResolveHttpRequestMessageType(apiDescription);
+                    Type parameterType = sampleGenerator.ResolveHttpRequestMessageType(apiDescription);
 
                     if (parameterType != null)
                     {
@@ -377,8 +377,8 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static void GenerateResourceDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
-            var response = apiModel.ApiDescription.ResponseDescription;
-            var responseType = response.ResponseType ?? response.DeclaredType;
+            ResponseDescription response = apiModel.ApiDescription.ResponseDescription;
+            Type responseType = response.ResponseType ?? response.DeclaredType;
             if (responseType != null && responseType != typeof(void))
             {
                 apiModel.ResourceDescription = modelGenerator.GetOrCreateModelDescription(responseType);
@@ -426,7 +426,7 @@ namespace AsyncControllers.Areas.HelpPage
 
             if (resourceType == typeof(HttpRequestMessage))
             {
-                var sampleGenerator = config.GetHelpPageSampleGenerator();
+                HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
                 resourceType = sampleGenerator.ResolveHttpRequestMessageType(apiDescription);
             }
 
@@ -441,9 +441,9 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static ModelDescriptionGenerator InitializeModelDescriptionGenerator(HttpConfiguration config)
         {
-            var modelGenerator = new ModelDescriptionGenerator(config);
-            var apis = config.Services.GetApiExplorer().ApiDescriptions;
-            foreach (var api in apis)
+            ModelDescriptionGenerator modelGenerator = new ModelDescriptionGenerator(config);
+            Collection<ApiDescription> apis = config.Services.GetApiExplorer().ApiDescriptions;
+            foreach (ApiDescription api in apis)
             {
                 ApiParameterDescription parameterDescription;
                 Type parameterType;
@@ -457,7 +457,7 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static void LogInvalidSampleAsError(HelpPageApiModel apiModel, object sample)
         {
-            var invalidSample = sample as InvalidSample;
+            InvalidSample invalidSample = sample as InvalidSample;
             if (invalidSample != null)
             {
                 apiModel.ErrorMessages.Add(invalidSample.ErrorMessage);

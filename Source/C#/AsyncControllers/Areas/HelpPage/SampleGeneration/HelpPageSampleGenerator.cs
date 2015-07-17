@@ -11,10 +11,9 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using System.Xml.Linq;
-
 using Newtonsoft.Json;
 
-namespace AsyncControllers.Areas.HelpPage.SampleGeneration
+namespace AsyncControllers.Areas.HelpPage
 {
     /// <summary>
     /// This class will generate the samples for the help page.
@@ -94,28 +93,32 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
             {
                 throw new ArgumentNullException("api");
             }
-            var controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
-            var actionName = api.ActionDescriptor.ActionName;
-            var parameterNames = api.ParameterDescriptions.Select(p => p.Name).ToList();
+            string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
+            string actionName = api.ActionDescriptor.ActionName;
+            IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
             Collection<MediaTypeFormatter> formatters;
-            var type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
+            Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
+            var samples = new Dictionary<MediaTypeHeaderValue, object>();
 
             // Use the samples provided directly for actions
             var actionSamples = GetAllActionSamples(controllerName, actionName, parameterNames, sampleDirection);
-            var samples = actionSamples.ToDictionary(actionSample => actionSample.Key.MediaType, actionSample => WrapSampleIfString(actionSample.Value));
+            foreach (var actionSample in actionSamples)
+            {
+                samples.Add(actionSample.Key.MediaType, WrapSampleIfString(actionSample.Value));
+            }
 
             // Do the sample generation based on formatters only if an action doesn't return an HttpResponseMessage.
             // Here we cannot rely on formatters because we don't know what's in the HttpResponseMessage, it might not even use formatters.
             if (type != null && !typeof(HttpResponseMessage).IsAssignableFrom(type))
             {
-                var sampleObject = GetSampleObject(type);
+                object sampleObject = GetSampleObject(type);
                 foreach (var formatter in formatters)
                 {
-                    foreach (var mediaType in formatter.SupportedMediaTypes)
+                    foreach (MediaTypeHeaderValue mediaType in formatter.SupportedMediaTypes)
                     {
                         if (!samples.ContainsKey(mediaType))
                         {
-                            var sample = GetActionSample(controllerName, actionName, parameterNames, type, formatter, mediaType, sampleDirection);
+                            object sample = GetActionSample(controllerName, actionName, parameterNames, type, formatter, mediaType, sampleDirection);
 
                             // If no sample found, try generate sample using formatter and sample object
                             if (sample == null && sampleObject != null)
@@ -179,7 +182,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
             if (!SampleObjects.TryGetValue(type, out sampleObject))
             {
                 // No specific object available, try our factories.
-                foreach (var factory in SampleObjectFactories)
+                foreach (Func<HelpPageSampleGenerator, Type, object> factory in SampleObjectFactories)
                 {
                     if (factory == null)
                     {
@@ -211,9 +214,9 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
         /// <returns>The type.</returns>
         public virtual Type ResolveHttpRequestMessageType(ApiDescription api)
         {
-            var controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
-            var actionName = api.ActionDescriptor.ActionName;
-            var parameterNames = api.ParameterDescriptions.Select(p => p.Name);
+            string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
+            string actionName = api.ActionDescriptor.ActionName;
+            IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
             Collection<MediaTypeFormatter> formatters;
             return ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out formatters);
         }
@@ -243,7 +246,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
                 ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, new[] { "*" }), out type))
             {
                 // Re-compute the supported formatters based on type
-                var newFormatters = new Collection<MediaTypeFormatter>();
+                Collection<MediaTypeFormatter> newFormatters = new Collection<MediaTypeFormatter>();
                 foreach (var formatter in api.ActionDescriptor.Configuration.Formatters)
                 {
                     if (IsFormatSupported(sampleDirection, formatter, type))
@@ -258,10 +261,11 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
                 switch (sampleDirection)
                 {
                     case SampleDirection.Request:
-                        var requestBodyParameter = api.ParameterDescriptions.FirstOrDefault(p => p.Source == ApiParameterSource.FromBody);
+                        ApiParameterDescription requestBodyParameter = api.ParameterDescriptions.FirstOrDefault(p => p.Source == ApiParameterSource.FromBody);
                         type = requestBodyParameter == null ? null : requestBodyParameter.ParameterDescriptor.ParameterType;
                         formatters = api.SupportedRequestBodyFormatters;
                         break;
+                    case SampleDirection.Response:
                     default:
                         type = api.ResponseDescription.ResponseType ?? api.ResponseDescription.DeclaredType;
                         formatters = api.SupportedResponseFormatters;
@@ -292,7 +296,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
                 throw new ArgumentNullException("mediaType");
             }
 
-            object sample;
+            object sample = String.Empty;
             MemoryStream ms = null;
             HttpContent content = null;
             try
@@ -303,8 +307,8 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
                     content = new ObjectContent(type, value, formatter, mediaType);
                     formatter.WriteToStreamAsync(type, value, ms, content, null).Wait();
                     ms.Position = 0;
-                    var reader = new StreamReader(ms);
-                    var serializedSampleString = reader.ReadToEnd();
+                    StreamReader reader = new StreamReader(ms);
+                    string serializedSampleString = reader.ReadToEnd();
                     if (mediaType.MediaType.ToUpperInvariant().Contains("XML"))
                     {
                         serializedSampleString = TryFormatXml(serializedSampleString);
@@ -352,7 +356,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 
         internal static Exception UnwrapException(Exception exception)
         {
-            var aggregateException = exception as AggregateException;
+            AggregateException aggregateException = exception as AggregateException;
             if (aggregateException != null)
             {
                 return aggregateException.Flatten().InnerException;
@@ -364,7 +368,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
         private static object DefaultSampleObjectFactory(HelpPageSampleGenerator sampleGenerator, Type type)
         {
             // Try to create a default sample object
-            var objectGenerator = new ObjectGenerator();
+            ObjectGenerator objectGenerator = new ObjectGenerator();
             return objectGenerator.GenerateObject(type);
         }
 
@@ -373,7 +377,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
         {
             try
             {
-                var parsedJson = JsonConvert.DeserializeObject(str);
+                object parsedJson = JsonConvert.DeserializeObject(str);
                 return JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
             }
             catch
@@ -388,7 +392,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
         {
             try
             {
-                var xml = XDocument.Parse(str);
+                XDocument xml = XDocument.Parse(str);
                 return xml.ToString();
             }
             catch
@@ -412,11 +416,10 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 
         private IEnumerable<KeyValuePair<HelpPageSampleKey, object>> GetAllActionSamples(string controllerName, string actionName, IEnumerable<string> parameterNames, SampleDirection sampleDirection)
         {
-            var parameterNamesSet = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
-            // ReSharper disable once LoopCanBeConvertedToQuery
+            HashSet<string> parameterNamesSet = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
             foreach (var sample in ActionSamples)
             {
-                var sampleKey = sample.Key;
+                HelpPageSampleKey sampleKey = sample.Key;
                 if (String.Equals(controllerName, sampleKey.ControllerName, StringComparison.OrdinalIgnoreCase) &&
                     String.Equals(actionName, sampleKey.ActionName, StringComparison.OrdinalIgnoreCase) &&
                     (sampleKey.ParameterNames.SetEquals(new[] { "*" }) || parameterNamesSet.SetEquals(sampleKey.ParameterNames)) &&
@@ -429,7 +432,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 
         private static object WrapSampleIfString(object sample)
         {
-            var stringSample = sample as string;
+            string stringSample = sample as string;
             if (stringSample != null)
             {
                 return new TextSample(stringSample);

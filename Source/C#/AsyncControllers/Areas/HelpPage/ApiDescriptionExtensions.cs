@@ -14,18 +14,18 @@ namespace AsyncControllers.Areas.HelpPage
         /// <returns>The ID as a string.</returns>
         public static string GetFriendlyId(this ApiDescription description)
         {
-            var path = description.RelativePath;
-            var urlParts = path.Split('?');
-            var localPath = urlParts[0];
+            string path = description.RelativePath;
+            string[] urlParts = path.Split('?');
+            string localPath = urlParts[0];
             string queryKeyString = null;
             if (urlParts.Length > 1)
             {
-                var query = urlParts[1];
-                var queryKeys = HttpUtility.ParseQueryString(query).AllKeys;
+                string query = urlParts[1];
+                string[] queryKeys = HttpUtility.ParseQueryString(query).AllKeys;
                 queryKeyString = String.Join("_", queryKeys);
             }
 
-            var friendlyPath = new StringBuilder();
+            StringBuilder friendlyPath = new StringBuilder();
             friendlyPath.AppendFormat("{0}-{1}",
                 description.HttpMethod.Method,
                 localPath.Replace("/", "-").Replace("{", String.Empty).Replace("}", String.Empty));

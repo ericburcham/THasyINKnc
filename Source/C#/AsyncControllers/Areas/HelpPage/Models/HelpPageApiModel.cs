@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-
 using AsyncControllers.Areas.HelpPage.ModelDescriptions;
 
 namespace AsyncControllers.Areas.HelpPage.Models
@@ -87,13 +86,13 @@ namespace AsyncControllers.Areas.HelpPage.Models
 
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {
-            var complexTypeModelDescription = modelDescription as ComplexTypeModelDescription;
+            ComplexTypeModelDescription complexTypeModelDescription = modelDescription as ComplexTypeModelDescription;
             if (complexTypeModelDescription != null)
             {
                 return complexTypeModelDescription.Properties;
             }
 
-            var collectionModelDescription = modelDescription as CollectionModelDescription;
+            CollectionModelDescription collectionModelDescription = modelDescription as CollectionModelDescription;
             if (collectionModelDescription != null)
             {
                 complexTypeModelDescription = collectionModelDescription.ElementDescription as ComplexTypeModelDescription;

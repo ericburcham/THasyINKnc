@@ -1,6 +1,6 @@
 using System;
 
-namespace AsyncControllers.Areas.HelpPage.SampleGeneration
+namespace AsyncControllers.Areas.HelpPage
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
@@ -20,7 +20,7 @@ namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 
         public override bool Equals(object obj)
         {
-            var other = obj as InvalidSample;
+            InvalidSample other = obj as InvalidSample;
             return other != null && ErrorMessage == other.ErrorMessage;
         }
 
