@@ -14,7 +14,7 @@ namespace AsyncControllers.Tests
     public class LocationControllerTests
     {
         [Test]
-        public void GetLibrariesShouldReturnResults()
+        public void GetDallasLibrariesShouldReturnResults()
         {
             var controller = new LocationController();
             var result = controller.GetDallasLibraries().Result;

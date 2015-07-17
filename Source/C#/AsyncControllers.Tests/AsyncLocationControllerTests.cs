@@ -16,7 +16,7 @@ namespace AsyncControllers.Tests
     public class AsyncLocationControllerTests
     {
         [Test]
-        public void GetLibrariesShouldReturnResults()
+        public void GetDallasLibrariesAsyncShouldReturnResults()
         {
             var controller = new AsyncLocationController();
 
