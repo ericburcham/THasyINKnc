@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
+
 using AsyncControllers.Areas.HelpPage.ModelDescriptions;
 
 namespace AsyncControllers.Areas.HelpPage
@@ -14,12 +15,12 @@ namespace AsyncControllers.Areas.HelpPage
     /// </summary>
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
-        private XPathNavigator _documentNavigator;
-        private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
-        private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
-        private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
-        private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
-        private const string ParameterExpression = "param[@name='{0}']";
+        private readonly XPathNavigator _documentNavigator;
+        private const string TYPE_EXPRESSION = "/doc/members/member[@name='T:{0}']";
+        private const string METHOD_EXPRESSION = "/doc/members/member[@name='M:{0}']";
+        private const string PROPERTY_EXPRESSION = "/doc/members/member[@name='P:{0}']";
+        private const string FIELD_EXPRESSION = "/doc/members/member[@name='F:{0}']";
+        private const string PARAMETER_EXPRESSION = "param[@name='{0}']";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
@@ -56,7 +57,7 @@ namespace AsyncControllers.Areas.HelpPage
                 if (methodNode != null)
                 {
                     string parameterName = reflectedParameterDescriptor.ParameterInfo.Name;
-                    XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, ParameterExpression, parameterName));
+                    XPathNavigator parameterNode = methodNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture, PARAMETER_EXPRESSION, parameterName));
                     if (parameterNode != null)
                     {
                         return parameterNode.Value.Trim();
@@ -76,7 +77,7 @@ namespace AsyncControllers.Areas.HelpPage
         public string GetDocumentation(MemberInfo member)
         {
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
-            string expression = member.MemberType == MemberTypes.Field ? FieldExpression : PropertyExpression;
+            string expression = member.MemberType == MemberTypes.Field ? FIELD_EXPRESSION : PROPERTY_EXPRESSION;
             string selectExpression = String.Format(CultureInfo.InvariantCulture, expression, memberName);
             XPathNavigator propertyNode = _documentNavigator.SelectSingleNode(selectExpression);
             return GetTagValue(propertyNode, "summary");
@@ -93,7 +94,7 @@ namespace AsyncControllers.Areas.HelpPage
             ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
             if (reflectedActionDescriptor != null)
             {
-                string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
+                string selectExpression = String.Format(CultureInfo.InvariantCulture, METHOD_EXPRESSION, GetMemberName(reflectedActionDescriptor.MethodInfo));
                 return _documentNavigator.SelectSingleNode(selectExpression);
             }
 
@@ -130,7 +131,7 @@ namespace AsyncControllers.Areas.HelpPage
         private XPathNavigator GetTypeNode(Type type)
         {
             string controllerTypeName = GetTypeName(type);
-            string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
+            string selectExpression = String.Format(CultureInfo.InvariantCulture, TYPE_EXPRESSION, controllerTypeName);
             return _documentNavigator.SelectSingleNode(selectExpression);
         }
 

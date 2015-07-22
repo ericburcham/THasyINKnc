@@ -1,6 +1,7 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
+
 using AsyncControllers.Areas.HelpPage.ModelDescriptions;
 using AsyncControllers.Areas.HelpPage.Models;
 
@@ -11,7 +12,7 @@ namespace AsyncControllers.Areas.HelpPage.Controllers
     /// </summary>
     public class HelpController : Controller
     {
-        private const string ErrorViewName = "Error";
+        private const string ERROR_VIEW_NAME = "Error";
 
         public HelpController()
             : this(GlobalConfiguration.Configuration)
@@ -42,7 +43,7 @@ namespace AsyncControllers.Areas.HelpPage.Controllers
                 }
             }
 
-            return View(ErrorViewName);
+            return View(ERROR_VIEW_NAME);
         }
 
         public ActionResult ResourceModel(string modelName)
@@ -57,7 +58,7 @@ namespace AsyncControllers.Areas.HelpPage.Controllers
                 }
             }
 
-            return View(ErrorViewName);
+            return View(ERROR_VIEW_NAME);
         }
     }
 }

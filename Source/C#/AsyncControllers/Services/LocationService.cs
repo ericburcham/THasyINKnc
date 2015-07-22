@@ -12,7 +12,7 @@ namespace AsyncControllers.Services
     {
         public Task<IEnumerable<GeoName>> GetAllAsync()
         {
-            return Task.Factory.StartNew(() => this.GetAll());
+            return Task.Factory.StartNew(() => GetAll());
         }
 
         public IEnumerable<GeoName> GetAll()

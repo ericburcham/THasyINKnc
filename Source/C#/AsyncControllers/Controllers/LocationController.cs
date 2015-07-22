@@ -14,7 +14,7 @@ namespace AsyncControllers.Controllers
     {
         public async Task<ViewResult> GetDallasLibraries()
         {
-            var libraries = await this.GetDallasLibrariesAsync();
+            var libraries = await GetDallasLibrariesAsync();
             return View(libraries);
         }
 

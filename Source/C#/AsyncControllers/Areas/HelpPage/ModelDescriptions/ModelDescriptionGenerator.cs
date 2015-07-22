@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
+
 using Newtonsoft.Json;
 
 namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
@@ -19,7 +20,7 @@ namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
     public class ModelDescriptionGenerator
     {
         // Modify this to support more data annotation attributes.
-        private readonly IDictionary<Type, Func<object, string>> AnnotationTextGenerator = new Dictionary<Type, Func<object, string>>
+        private readonly IDictionary<Type, Func<object, string>> _annotationTextGenerator = new Dictionary<Type, Func<object, string>>
         {
             { typeof(RequiredAttribute), a => "Required" },
             { typeof(RangeAttribute), a =>
@@ -57,11 +58,11 @@ namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
                     RegularExpressionAttribute regularExpression = (RegularExpressionAttribute)a;
                     return String.Format(CultureInfo.CurrentCulture, "Matching regular expression pattern: {0}", regularExpression.Pattern);
                 }
-            },
+            }
         };
 
         // Modify this to add more default documentations.
-        private readonly IDictionary<Type, string> DefaultTypeDocumentation = new Dictionary<Type, string>
+        private readonly IDictionary<Type, string> _defaultTypeDocumentation = new Dictionary<Type, string>
         {
             { typeof(Int16), "integer" },
             { typeof(Int32), "integer" },
@@ -81,7 +82,7 @@ namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
             { typeof(TimeSpan), "time interval" },
             { typeof(DateTime), "date" },
             { typeof(DateTimeOffset), "date" },
-            { typeof(Boolean), "boolean" },
+            { typeof(Boolean), "boolean" }
         };
 
         private Lazy<IModelDocumentationProvider> _documentationProvider;
@@ -139,7 +140,7 @@ namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
                 return modelDescription;
             }
 
-            if (DefaultTypeDocumentation.ContainsKey(modelType))
+            if (_defaultTypeDocumentation.ContainsKey(modelType))
             {
                 return GenerateSimpleTypeModelDescription(modelType);
             }
@@ -252,7 +253,7 @@ namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
         private string CreateDefaultDocumentation(Type type)
         {
             string documentation;
-            if (DefaultTypeDocumentation.TryGetValue(type, out documentation))
+            if (_defaultTypeDocumentation.TryGetValue(type, out documentation))
             {
                 return documentation;
             }
@@ -272,7 +273,7 @@ namespace AsyncControllers.Areas.HelpPage.ModelDescriptions
             foreach (Attribute attribute in attributes)
             {
                 Func<object, string> textGenerator;
-                if (AnnotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
+                if (_annotationTextGenerator.TryGetValue(attribute.GetType(), out textGenerator))
                 {
                     annotations.Add(
                         new ParameterAnnotation

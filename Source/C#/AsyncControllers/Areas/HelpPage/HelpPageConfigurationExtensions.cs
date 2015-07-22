@@ -11,14 +11,16 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
+
 using AsyncControllers.Areas.HelpPage.ModelDescriptions;
 using AsyncControllers.Areas.HelpPage.Models;
+using AsyncControllers.Areas.HelpPage.SampleGeneration;
 
 namespace AsyncControllers.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
-        private const string ApiModelPrefix = "MS_HelpPageApiModel_";
+        private const string API_MODEL_PREFIX = "MS_HelpPageApiModel_";
 
         /// <summary>
         /// Sets the documentation provider for help page.
@@ -219,7 +221,7 @@ namespace AsyncControllers.Areas.HelpPage
         public static HelpPageApiModel GetHelpPageApiModel(this HttpConfiguration config, string apiDescriptionId)
         {
             object model;
-            string modelId = ApiModelPrefix + apiDescriptionId;
+            string modelId = API_MODEL_PREFIX + apiDescriptionId;
             if (!config.Properties.TryGetValue(modelId, out model))
             {
                 Collection<ApiDescription> apiDescriptions = config.Services.GetApiExplorer().ApiDescriptions;
@@ -236,9 +238,8 @@ namespace AsyncControllers.Areas.HelpPage
 
         private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HttpConfiguration config)
         {
-            HelpPageApiModel apiModel = new HelpPageApiModel()
-            {
-                ApiDescription = apiDescription,
+            HelpPageApiModel apiModel = new HelpPageApiModel {
+                ApiDescription = apiDescription
             };
 
             ModelDescriptionGenerator modelGenerator = config.GetModelDescriptionGenerator();
@@ -304,13 +305,13 @@ namespace AsyncControllers.Areas.HelpPage
 
                         if (!parameterDescriptor.IsOptional)
                         {
-                            uriParameter.Annotations.Add(new ParameterAnnotation() { Documentation = "Required" });
+                            uriParameter.Annotations.Add(new ParameterAnnotation { Documentation = "Required" });
                         }
 
                         object defaultValue = parameterDescriptor.DefaultValue;
                         if (defaultValue != null)
                         {
-                            uriParameter.Annotations.Add(new ParameterAnnotation() { Documentation = "Default value is " + Convert.ToString(defaultValue, CultureInfo.InvariantCulture) });
+                            uriParameter.Annotations.Add(new ParameterAnnotation { Documentation = "Default value is " + Convert.ToString(defaultValue, CultureInfo.InvariantCulture) });
                         }
                     }
                     else
@@ -344,7 +345,7 @@ namespace AsyncControllers.Areas.HelpPage
             {
                 Name = apiParameter.Name,
                 Documentation = apiParameter.Documentation,
-                TypeDescription = typeDescription,
+                TypeDescription = typeDescription
             };
 
             apiModel.UriParameters.Add(parameterDescription);

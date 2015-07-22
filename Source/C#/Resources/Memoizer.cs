@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -19,10 +18,10 @@ namespace Resources
             _cacheLock.EnterWriteLock();
             try
             {
-                if (!this._cache.TryGetValue(key, out result))
+                if (!_cache.TryGetValue(key, out result))
                 {
                     result = _func.Invoke(key);
-                    this._cache.Add(key, result);
+                    _cache.Add(key, result);
                 }
             }
             finally

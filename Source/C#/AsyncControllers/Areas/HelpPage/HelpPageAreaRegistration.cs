@@ -1,6 +1,8 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
+using AsyncControllers.Areas.HelpPage.App_Start;
+
 namespace AsyncControllers.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration

@@ -11,9 +11,10 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using System.Xml.Linq;
+
 using Newtonsoft.Json;
 
-namespace AsyncControllers.Areas.HelpPage
+namespace AsyncControllers.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// This class will generate the samples for the help page.
@@ -30,7 +31,7 @@ namespace AsyncControllers.Areas.HelpPage
             SampleObjects = new Dictionary<Type, object>();
             SampleObjectFactories = new List<Func<HelpPageSampleGenerator, Type, object>>
             {
-                DefaultSampleObjectFactory,
+                DefaultSampleObjectFactory
             };
         }
 
@@ -95,7 +96,7 @@ namespace AsyncControllers.Areas.HelpPage
             }
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
             string actionName = api.ActionDescriptor.ActionName;
-            IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
+            IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name).ToList();
             Collection<MediaTypeFormatter> formatters;
             Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
             var samples = new Dictionary<MediaTypeHeaderValue, object>();
@@ -265,7 +266,6 @@ namespace AsyncControllers.Areas.HelpPage
                         type = requestBodyParameter == null ? null : requestBodyParameter.ParameterDescriptor.ParameterType;
                         formatters = api.SupportedRequestBodyFormatters;
                         break;
-                    case SampleDirection.Response:
                     default:
                         type = api.ResponseDescription.ResponseType ?? api.ResponseDescription.DeclaredType;
                         formatters = api.SupportedResponseFormatters;
@@ -296,7 +296,7 @@ namespace AsyncControllers.Areas.HelpPage
                 throw new ArgumentNullException("mediaType");
             }
 
-            object sample = String.Empty;
+            object sample;
             MemoryStream ms = null;
             HttpContent content = null;
             try
