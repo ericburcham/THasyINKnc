@@ -26,7 +26,7 @@ namespace WaitingAndPulsing
             {
                 Console.WriteLine("Producing {0}", i);
                 _sharedResource.Produce(i);
-                Thread.Sleep(random.Next(500));
+                Thread.Sleep(random.Next(250));
             }
         }
 

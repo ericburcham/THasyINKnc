@@ -5,30 +5,30 @@ namespace WaitingAndPulsing
 {
     public class ProducerConsumer<T>
     {
-        public void Produce(T i)
+        public void Produce(T t)
         {
-            lock (_listLock)
+            lock (_queueLock)
             {
-                _queue.Enqueue(i);
-                Monitor.Pulse(_listLock);
+                _queue.Enqueue(t);
+                Monitor.Pulse(_queueLock);
             }
         }
 
         public object Consume()
         {
-            lock (_listLock)
+            lock (_queueLock)
             {
                 while (_queue.Count == 0)
                 {
                     // This releases _listLockand reacquires it
                     // after being woken up by a call to Pulse
-                    Monitor.Wait(_listLock);
+                    Monitor.Wait(_queueLock);
                 }
                 return _queue.Dequeue();
             }
         }
 
-        private readonly object _listLock = new object();
+        private readonly object _queueLock = new object();
 
         private readonly Queue<T> _queue = new Queue<T>();
     }
