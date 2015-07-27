@@ -14,7 +14,7 @@ namespace WaitingAndPulsing
             }
         }
 
-        public object Consume()
+        public T Consume()
         {
             lock (_queueLock)
             {
