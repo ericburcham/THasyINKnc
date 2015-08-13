@@ -6,7 +6,13 @@ namespace Resources
 {
     public class Memoizer<TKey, TValue>
     {
-        public Memoizer(Func<TKey, TValue> func)
+        public Memoizer()
+        {
+            _cache = new Dictionary<TKey, TValue>();
+            _cacheLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        }
+
+        public Memoizer(Func<TKey, TValue> func) : this()
         {
             _func = func;
         }
@@ -32,10 +38,10 @@ namespace Resources
             return result;
         }
 
-        private readonly Dictionary<TKey, TValue> _cache = new Dictionary<TKey, TValue>();
+        private readonly Dictionary<TKey, TValue> _cache;
 
-        private readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
-
+        private readonly ReaderWriterLockSlim _cacheLock;
+        
         private readonly Func<TKey, TValue> _func;
     }
 }
