@@ -1,47 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace Resources
 {
-    public class Memoizer<TKey, TValue>
+    public class Memoizer<TKey, TValue> : MemoizerBase<TKey, TValue, TValue>
     {
-        public Memoizer()
+        public Memoizer(Func<TKey, TValue> func)
+            : base(func)
         {
-            _cache = new Dictionary<TKey, TValue>();
-            _cacheLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
         }
 
-        public Memoizer(Func<TKey, TValue> func) : this()
+        protected override TValue GenerateValue(TKey key)
         {
-            _func = func;
+            var value = Func(key);
+            Cache.Add(key, value);
+            return value;
         }
 
-        public TValue GetOrInvoke(TKey key)
+        protected override TValue GetValue(TKey key)
         {
-            TValue result;
-
-            _cacheLock.EnterWriteLock();
-            try
-            {
-                if (!_cache.TryGetValue(key, out result))
-                {
-                    result = _func.Invoke(key);
-                    _cache.Add(key, result);
-                }
-            }
-            finally
-            {
-                _cacheLock.ExitWriteLock();
-            }
-
-            return result;
+            return Cache[key];
         }
 
-        private readonly Dictionary<TKey, TValue> _cache;
-
-        private readonly ReaderWriterLockSlim _cacheLock;
-        
-        private readonly Func<TKey, TValue> _func;
+        protected override bool ValueExists(TKey key)
+        {
+            return Cache.ContainsKey(key);
+        }
     }
 }
