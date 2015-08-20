@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMemoizeFunctions.cs" />
     <Compile Include="SoftMemoizer.cs" />
     <Compile Include="FuncExtensions.cs" />
     <Compile Include="Functions.cs" />

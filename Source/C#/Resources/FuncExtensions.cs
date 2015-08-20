@@ -8,20 +8,24 @@ namespace Resources
         {
             var example = new { argA = default(TArgA), argB = default(TArgB) };
             var tupled = CastByExample(t => func(t.argA, t.argB), example);
-            var memoized = tupled.Memoize();
+            var memoized = tupled.Memoize(false);
             return (a, b) => memoized(new { argA = a, argB = b });
         }
 
-        public static Func<TArg, TResult> Memoize<TArg, TResult>(this Func<TArg, TResult> func)
+        public static Func<TArg, TResult> Memoize<TArg, TResult>(
+            this Func<TArg, TResult> func,
+            bool isExpirable)
         {
-            var memoizer = new Memoizer<TArg, TResult>(func);
+            IMemoizeFunctions<TArg, TResult> memoizer;
+            if (isExpirable)
+            {
+                memoizer = new SoftMemoizer<TArg, TResult>(func);
+            }
+            else
+            {
+                memoizer = new Memoizer<TArg, TResult>(func);
+            }
             return argument => memoizer.GetOrInvoke(argument);
-        }
-
-        public static Func<TArg, TResult> SoftMemoize<TArg, TResult>(this Func<TArg, TResult> func)
-        {
-            var softMemoizer = new SoftMemoizer<TArg, TResult>(func);
-            return argument => softMemoizer.GetOrInvoke(argument);
         }
 
         // ReSharper disable once UnusedParameter.Local

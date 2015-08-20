@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Resources
 {
-    public abstract class MemoizerBase<TKey, TValue, TDictionaryValue>
+    public abstract class MemoizerBase<TKey, TValue, TDictionaryValue> : IMemoizeFunctions<TKey, TValue>
     {
         protected MemoizerBase(Func<TKey, TValue> func)
             : this()

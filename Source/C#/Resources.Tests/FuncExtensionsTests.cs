@@ -27,7 +27,7 @@ namespace Resources.Tests
                     return i * i;
                 };
 
-            var memoized = getValueSquared.Memoize();
+            var memoized = getValueSquared.Memoize(false);
 
             // Act
             Parallel.For(0, 5000, AssertTwoSquaredIsFour(memoized));
@@ -53,7 +53,7 @@ namespace Resources.Tests
             };
 
             // Act
-            var memoized = getValueSquared.SoftMemoize();
+            var memoized = getValueSquared.Memoize(true);
 
             for (var i = 0; i < ThreadCount; i++)
             {

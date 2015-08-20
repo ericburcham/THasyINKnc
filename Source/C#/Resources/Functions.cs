@@ -28,7 +28,7 @@ namespace Resources
                             return a;
                         };
 
-                    _iterativeMemoized = _iterativeMemoized.Memoize();
+                    _iterativeMemoized = _iterativeMemoized.Memoize(false);
                 }
                 return _iterativeMemoized;
             }
