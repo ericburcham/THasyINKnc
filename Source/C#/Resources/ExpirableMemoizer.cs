@@ -2,23 +2,23 @@
 
 namespace Resources
 {
-    public class SoftMemoizer<TKey, TValue> : MemoizerBase<TKey, TValue, WeakReference>
+    public class ExpirableMemoizer<TArg, TResult> : MemoizerBase<TArg, TResult, WeakReference>
     {
-        public SoftMemoizer(Func<TKey, TValue> func)
+        public ExpirableMemoizer(Func<TArg, TResult> func)
             : base(func)
         {
         }
 
-        protected override TValue GenerateValue(TKey key)
+        protected override TResult SetCacheValue(TArg key)
         {
             var value = Func(key);
             Cache.Add(key, new WeakReference(value));
             return value;
         }
 
-        protected override TValue GetValue(TKey key)
+        protected override TResult GetCacheValue(TArg key)
         {
-            TValue value;
+            TResult value;
             var weakReference = Cache[key];
             if (weakReference.Target == null)
             {
@@ -27,13 +27,13 @@ namespace Resources
             }
             else
             {
-                value = (TValue)weakReference.Target;
+                value = (TResult)weakReference.Target;
             }
 
             return value;
         }
 
-        protected override bool ValueExists(TKey key)
+        protected override bool ValueExists(TArg key)
         {
             return Cache.ContainsKey(key);
         }

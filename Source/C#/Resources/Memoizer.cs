@@ -2,26 +2,26 @@
 
 namespace Resources
 {
-    public class Memoizer<TKey, TValue> : MemoizerBase<TKey, TValue, TValue>
+    public class Memoizer<TArg, TResult> : MemoizerBase<TArg, TResult, TResult>
     {
-        public Memoizer(Func<TKey, TValue> func)
+        public Memoizer(Func<TArg, TResult> func)
             : base(func)
         {
         }
 
-        protected override TValue GenerateValue(TKey key)
+        protected override TResult SetCacheValue(TArg key)
         {
             var value = Func(key);
             Cache.Add(key, value);
             return value;
         }
 
-        protected override TValue GetValue(TKey key)
+        protected override TResult GetCacheValue(TArg key)
         {
             return Cache[key];
         }
 
-        protected override bool ValueExists(TKey key)
+        protected override bool ValueExists(TArg key)
         {
             return Cache.ContainsKey(key);
         }

@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMemoizeFunctions.cs" />
-    <Compile Include="SoftMemoizer.cs" />
+    <Compile Include="ExpirableMemoizer.cs" />
     <Compile Include="FuncExtensions.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="MemoizerBase.cs" />

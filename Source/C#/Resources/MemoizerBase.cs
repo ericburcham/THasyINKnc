@@ -4,9 +4,9 @@ using System.Threading;
 
 namespace Resources
 {
-    public abstract class MemoizerBase<TKey, TValue, TDictionaryValue> : IMemoizeFunctions<TKey, TValue>
+    public abstract class MemoizerBase<TArg, TResult, TCache> : IMemoizeFunctions<TArg, TResult>
     {
-        protected MemoizerBase(Func<TKey, TValue> func)
+        protected MemoizerBase(Func<TArg, TResult> func)
             : this()
         {
             Func = func;
@@ -14,18 +14,18 @@ namespace Resources
 
         private MemoizerBase()
         {
-            Cache = new Dictionary<TKey, TDictionaryValue>();
+            Cache = new Dictionary<TArg, TCache>();
             CacheLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
         }
 
-        public TValue GetOrInvoke(TKey key)
+        public TResult GetOrInvoke(TArg key)
         {
-            TValue result;
+            TResult result;
 
             CacheLock.EnterWriteLock();
             try
             {
-                result = ValueExists(key) ? GetValue(key) : GenerateValue(key);
+                result = ValueExists(key) ? this.GetCacheValue(key) : this.SetCacheValue(key);
             }
             finally
             {
@@ -35,16 +35,16 @@ namespace Resources
             return result;
         }
 
-        protected abstract TValue GenerateValue(TKey key);
+        protected abstract TResult SetCacheValue(TArg key);
 
-        protected abstract TValue GetValue(TKey key);
+        protected abstract TResult GetCacheValue(TArg key);
 
-        protected abstract bool ValueExists(TKey key);
+        protected abstract bool ValueExists(TArg key);
 
-        protected Dictionary<TKey, TDictionaryValue> Cache { get; private set; }
+        protected Dictionary<TArg, TCache> Cache { get; private set; }
 
         protected ReaderWriterLockSlim CacheLock { get; private set; }
 
-        protected Func<TKey, TValue> Func { get; private set; }
+        protected Func<TArg, TResult> Func { get; private set; }
     }
 }

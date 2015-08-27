@@ -19,7 +19,7 @@ namespace Resources
             IMemoizeFunctions<TArg, TResult> memoizer;
             if (isExpirable)
             {
-                memoizer = new SoftMemoizer<TArg, TResult>(func);
+                memoizer = new ExpirableMemoizer<TArg, TResult>(func);
             }
             else
             {
@@ -29,7 +29,7 @@ namespace Resources
         }
 
         // ReSharper disable once UnusedParameter.Local
-        private static Func<T, TR> CastByExample<T, TR>(this Func<T, TR> function, T example)
+        private static Func<TArg, TResult> CastByExample<TArg, TResult>(this Func<TArg, TResult> function, TArg example)
         {
             return function;
         }
