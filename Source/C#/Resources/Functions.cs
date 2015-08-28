@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Funky;
+using System;
 using System.Threading;
 
 namespace Resources
