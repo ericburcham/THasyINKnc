@@ -6,9 +6,22 @@ namespace QuickSort
 {
     internal static class SortAlgorithms
     {
+        public static void Quicksort<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
+        {
+            if (rightIndex <= leftIndex)
+            {
+                return;
+            }
+
+            var pivot = Partition(array, leftIndex, rightIndex);
+
+            Quicksort(array, leftIndex, pivot - 1);
+            Quicksort(array, pivot + 1, rightIndex);
+        }
+
         public static void QuicksortParallel<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
         {
-            const int ParallelThreshold = 64;
+            const int ParallelThreshold = 1024;
 
             if (rightIndex <= leftIndex)
             {
@@ -35,7 +48,7 @@ namespace QuickSort
             var pivotPosition = (highIndex + lowIndex) / 2;
             var pivot = array[pivotPosition];
 
-            Swap(array, lowIndex, pivotPosition);
+            array.Swap(lowIndex, pivotPosition);
 
             var left = lowIndex;
             for (var i = lowIndex + 1; i <= highIndex; i++)
@@ -46,28 +59,15 @@ namespace QuickSort
                 }
 
                 left++;
-                Swap(array, i, left);
+                array.Swap(i, left);
             }
 
-            Swap(array, lowIndex, left);
+            array.Swap(lowIndex, left);
 
             return left;
         }
 
-        private static void Quicksort<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
-        {
-            if (rightIndex <= leftIndex)
-            {
-                return;
-            }
-
-            var pivot = Partition(array, leftIndex, rightIndex);
-
-            Quicksort(array, leftIndex, pivot - 1);
-            Quicksort(array, pivot + 1, rightIndex);
-        }
-
-        private static void Swap<T>(IList<T> array, int firstIndex, int secondIndex)
+        private static void Swap<T>(this IList<T> array, int firstIndex, int secondIndex)
         {
             var tmp = array[firstIndex];
             array[firstIndex] = array[secondIndex];
