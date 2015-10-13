@@ -17,8 +17,6 @@ namespace AsyncControllers.Services
 
         public IEnumerable<GeoName> GetAll()
         {
-            // Thread.Sleep(5000);
-         
             var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             var dataContext = new GeoDataContext(connectionString);
 
