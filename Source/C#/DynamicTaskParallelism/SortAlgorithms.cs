@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace QuickSort
+namespace DynamicTaskParallelism
 {
     internal static class SortAlgorithms
     {
-        public static void Quicksort<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
+        public static void ParallelQuicksort<T>(IList<T> array) where T : IComparable<T>
         {
-            if (rightIndex <= leftIndex)
-            {
-                return;
-            }
-
-            var pivot = Partition(array, leftIndex, rightIndex);
-
-            Quicksort(array, leftIndex, pivot - 1);
-            Quicksort(array, pivot + 1, rightIndex);
+            var leftIndex = 0;
+            var rightIndex = array.Count - 1;
+            ParallelQuicksort(array, leftIndex, rightIndex);
         }
 
-        public static void QuicksortParallel<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
+        public static void Quicksort<T>(IList<T> array) where T : IComparable<T>
+        {
+            var leftIndex = 0;
+            var rightIndex = array.Count - 1;
+            Quicksort(array, leftIndex, rightIndex);
+        }
+
+        private static void ParallelQuicksort<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
         {
             const int ParallelThreshold = 1024;
 
@@ -38,8 +39,8 @@ namespace QuickSort
                 var pivot = Partition(array, leftIndex, rightIndex);
 
                 Parallel.Invoke(
-                    () => QuicksortParallel(array, leftIndex, pivot - 1),
-                    () => QuicksortParallel(array, pivot + 1, rightIndex));
+                    () => ParallelQuicksort(array, leftIndex, pivot - 1),
+                    () => ParallelQuicksort(array, pivot + 1, rightIndex));
             }
         }
 
@@ -65,6 +66,19 @@ namespace QuickSort
             array.Swap(lowIndex, left);
 
             return left;
+        }
+
+        private static void Quicksort<T>(IList<T> array, int leftIndex, int rightIndex) where T : IComparable<T>
+        {
+            if (rightIndex <= leftIndex)
+            {
+                return;
+            }
+
+            var pivot = Partition(array, leftIndex, rightIndex);
+
+            Quicksort(array, leftIndex, pivot - 1);
+            Quicksort(array, pivot + 1, rightIndex);
         }
 
         private static void Swap<T>(this IList<T> array, int firstIndex, int secondIndex)

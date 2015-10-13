@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuickSort")]
+[assembly: AssemblyTitle("DynamicTaskParallelism")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QuickSort")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Enterprise Products")]
+[assembly: AssemblyProduct("DynamicTaskParallelism")]
+[assembly: AssemblyCopyright("Copyright © Enterprise Products 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f65af559-c449-44de-8d7e-41c6d5ed2e56")]
+[assembly: Guid("d8f45483-c92e-49e5-9ea4-ecc8f0fdf3c7")]
 
 // Version information for an assembly consists of the following four values:
 //
