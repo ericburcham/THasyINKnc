@@ -26,9 +26,9 @@ namespace Pipelines
             var createSentances = taskFactory.StartNew(() => CreateSentences(correctCaseBuffer, createSentanceBuffer));
 
             // Stage 4: Write output
-            var stage4 = taskFactory.StartNew(() => WriteSentences(createSentanceBuffer));
+            var writeSentances = taskFactory.StartNew(() => WriteSentences(createSentanceBuffer));
 
-            Task.WaitAll(readStrings, correctCases, createSentances, stage4);
+            Task.WaitAll(readStrings, correctCases, createSentances, writeSentances);
             Console.WriteLine("End");
         }
 

@@ -53,7 +53,11 @@ namespace ParallelLoops
         {
             var numbers = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             var squares = numbers.AsParallel().Select(i => Functions.Square(i));
-            Parallel.ForEach(squares, Console.WriteLine);
+
+            foreach (var square in squares)
+            {
+                Console.WriteLine(square);
+            }
         }
 
         public void InternalBreak()
